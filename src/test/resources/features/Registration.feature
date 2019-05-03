@@ -43,4 +43,15 @@ Feature: Registration
     When I click the submit button
     Then I will arrive at the manage account screen
 
-  
+  Scenario: Registration is not permitted if both phone numbers are missing
+    Given I am on the registration page
+    And I have added valid data into all fields except the phone number fields
+    When I click the submit button
+    Then I will receive an error saying a phone number must be present
+
+  Scenario: The address name field defaults to 'My Address'
+    Given I am on the registration page
+    When I view the Address Alias field
+    Then I see the value 'My address'
+
+    
