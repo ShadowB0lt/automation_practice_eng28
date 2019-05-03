@@ -9,7 +9,7 @@ Feature: Registration
   Scenario Outline: The name fields recognise invalid values
     Given I am on the registration page
     When I enter a string which includes a number into name field with id <id>
-    Then the name entry field will be marked as invalid
+    Then the name entry field <id> will be marked as invalid
 
     Examples:
       | id                 |
@@ -36,3 +36,11 @@ Feature: Registration
       | phone_mobile       |
       | phone              |
       | alias              |
+
+  Scenario: Registration is permitted once the form is correctly filled in
+    Given I am on the registration page
+    And I have added valid data into the mandatory fields
+    When I click the submit button
+    Then I will arrive at the manage account screen
+
+  
