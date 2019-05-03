@@ -44,8 +44,7 @@ Feature: Basket
     Then product is not displayed in basket
 
 
-
+# Further Scenarios if needed after First Test Flow Implemented
 #    Scenario: Add a product to the basket from the products page
 #      Given i am on the home page
 #      When i click on the More button
-#      Then i can
