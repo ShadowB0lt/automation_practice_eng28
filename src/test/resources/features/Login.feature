@@ -11,7 +11,7 @@ Feature: Login
     Then I get the corresponding error <error>
 
     Examples:
-      | email                     | error                      |
+      | email                       | error                      |
       | "hithere@hithere.hi.there"  | "1. Authentication failed" |
       | "hithere@@hithere.hi.there" | "1. Invalid email address" |
 
@@ -22,6 +22,6 @@ Feature: Login
     Then I get the corresponding error <error>
 
     Examples:
-      | password         | error                      |
+      | password        | error                      |
       | "wrongpassword" | "1. Authentication failed" |
       | "hi"            | "1. Invalid password"      |
