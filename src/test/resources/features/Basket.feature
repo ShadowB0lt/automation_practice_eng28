@@ -16,23 +16,23 @@ Feature: Basket
     Then I see the quantity has been increased by 1
 
   Scenario: Decrease quantity of a product in the basket
-    Given i can see the product in the basket
-    When i click on the minus button
-    Then i see the quantity has been decreased by 1
+    Given I can see the product in the basket
+    When I click on the minus button
+    Then I see the quantity has been decreased by 1
 
   Scenario: Specify quantity of a product in the basket
-    Given i can see the product in the basket
-    When i input a quantity of 5
-    Then i see the quantity has been changed to 5
+    Given I can see the product in the basket
+    When I input a quantity of 5
+    Then I see the quantity has been changed to 5
 
   Scenario: Proceed to checkout
-    Given i have a populated basket
-    When i click proceed to checkout
-    Then i am on checkout
+    Given I have a populated basket
+    When I click proceed to checkout
+    Then I am on checkout
 
   Scenario: Add multiple different products to the basket from the home page
-    Given i am on the home page
-    When i click add to cart button for a product
+    Given I am on the home page
+    When I click add to cart button for a product
     And pop up menu appears saying product has been added to the basket
     When I click continue shopping button
     And I click add to cart button for a different product
