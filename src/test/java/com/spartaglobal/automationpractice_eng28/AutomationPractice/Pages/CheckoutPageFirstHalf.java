@@ -55,6 +55,8 @@ public class CheckoutPageFirstHalf {
         return this;
     }
 
+    //INSERT METHODS FOR FILLING OUT FORM
+
     public CheckoutPageFirstHalf clickSaveAddressButton(){
         findElement(saveNewAddressButton).click();
         return this;
@@ -96,7 +98,7 @@ public class CheckoutPageFirstHalf {
         return billingAddressesList.contains(address);
     }
 
-//check terms and conditions
+//SCENARIO: check terms and conditions
 
     public CheckoutPageFirstHalf getToShippingPage(){
         try {
