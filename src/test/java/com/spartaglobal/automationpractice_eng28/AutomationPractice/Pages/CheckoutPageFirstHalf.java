@@ -16,8 +16,18 @@ public class CheckoutPageFirstHalf {
     private By addNewAddressButton = By.linkText("Add a new address");
     private By saveNewAddressButton = By.id("submitAddress");
     private By deliveryAddressesElements = By.id("id_address_delivery");
+    private By billingAddressesElements = By.id("id_address_invoice");
+    private By shippingPageButton = By.name("processAddress");
+    private By termsAndConditionsButton = By.linkText("(Read the Terms of Service)");
+    private By termsAndConditions = By.xpath("//*[@id=\"order\"]/div[2]/div"); // FIX LATER
+    private By updateBillingAddressButton = By.linkText("Update");
+    private By billingAddressInformation = By.cssSelector("li[class^='address']");
+
+
 
     private List<String> deliveryAddressesList;
+    private List<String> billingAddressesList;
+    private List<String> billingAddressDetailsList;
 
 
     public CheckoutPageFirstHalf(WebDriver driver) {
@@ -39,13 +49,15 @@ public class CheckoutPageFirstHalf {
         return this;
     }
 
+    //Scenario: add new address
+
     public CheckoutPageFirstHalf clickAddNewAddress(){
-        findElement(addNewAddressButton);
+        findElement(addNewAddressButton).click();
         return this;
     }
 
-    public CheckoutPageFirstHalf saveNewAddressButton(){
-        findElement(saveNewAddressButton);
+    public CheckoutPageFirstHalf clickSaveAddressButton(){
+        findElement(saveNewAddressButton).click();
         return this;
     }
 
@@ -66,6 +78,87 @@ public class CheckoutPageFirstHalf {
         getDeliveryAddressesElements();
         return deliveryAddressesList.contains(address);
     }
+
+    private List<String> getBillingAddressesElements() {
+
+        ArrayList<String> billingAddresses = new ArrayList<>();
+        WebElement dropdown = driver.findElement(billingAddressesElements);
+        List<WebElement> billingOptions = dropdown.findElements(By.tagName("option"));
+        Iterator<WebElement> it = billingOptions.iterator();
+        while (it.hasNext()) {
+            billingAddresses.add(it.next().getText().trim());
+        }
+        billingAddressesList = billingAddresses;
+        return billingAddressesList;
+    }
+
+    public boolean checkBillingAddress(String address){
+        getBillingAddressesElements();
+        return billingAddressesList.contains(address);
+    }
+
+//check terms and conditions
+
+    public CheckoutPageFirstHalf getToShippingPage(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElement(shippingPageButton).click();
+        return this;
+    }
+
+    public CheckoutPageFirstHalf clickViewTAndCbutton(){
+        driver.findElement(termsAndConditionsButton).click();
+        return this;
+    }
+
+    public boolean isTermsAndConditionsDisplayed(){
+        return driver.findElement(termsAndConditions).isDisplayed();
+    }
+
+ //SCENARIO: UPDATE BILLING ADDRESS
+
+    public CheckoutPageFirstHalf clickUpdateBillingAddressButton(){
+        driver.findElement(updateBillingAddressButton).click();
+        return this;
+    }
+ //insert methods to change the billing address
+
+    public List<String> getUpdatedBillingAddressesElements() {
+
+        int index = 0;
+        ArrayList<String> updatedAddresses = new ArrayList<>();
+        ArrayList<String> updatedBillingAddresses = new ArrayList<>();
+        for (WebElement billingElement : driver.findElements(billingAddressInformation)) {
+            updatedAddresses.add(billingElement.getText());
+        }
+        while (index < updatedAddresses.size()){
+            updatedAddresses.remove("Update");
+            index++;
+            }
+        int billingAddressIndex = updatedAddresses.indexOf("YOUR BILLING ADDRESS");
+        for(int j = billingAddressIndex; j<updatedAddresses.size(); j++){
+            updatedBillingAddresses.add(updatedAddresses.get(j));
+            }
+        return updatedBillingAddresses;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -104,7 +197,7 @@ public class CheckoutPageFirstHalf {
 
     public CheckoutPageFirstHalf step7(){
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
