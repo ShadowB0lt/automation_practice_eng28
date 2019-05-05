@@ -1,6 +1,7 @@
 package com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -11,8 +12,8 @@ public class LoginPage {
     private String loginPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
     private By emailField = By.id("email");
     private By passwordField = By.id("passwd");
-    private By emailError = By.className("alert alert-danger");
-    private By passwordError = By.className("alert alert-danger");
+    private By emailError = By.tagName("ol");
+    private By passwordError = By.tagName("ol");
     private By loginButton = By.id("SubmitLogin");
 
     public LoginPage(WebDriver driver){
