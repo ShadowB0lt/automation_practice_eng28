@@ -21,14 +21,13 @@ public class CheckoutPageFirstHalf {
     private By termsAndConditionsButton = By.linkText("(Read the Terms of Service)");
     private By termsAndConditions = By.xpath("//*[@id=\"order\"]/div[2]/div"); // FIX LATER
     private By updateBillingAddressButton = By.linkText("Update");
-    private By billingAddressInformation = By.cssSelector("li[class^='address']");
-
+    private By deliveryAndBillingAddressInformation = By.cssSelector("li[class^='address']");
 
 
     private List<String> deliveryAddressesList;
     private List<String> billingAddressesList;
     private List<String> billingAddressDetailsList;
-
+    private List<String> deliveryAddressDetailsList;
 
     public CheckoutPageFirstHalf(WebDriver driver) {
         this.driver = driver;
@@ -121,31 +120,70 @@ public class CheckoutPageFirstHalf {
  //SCENARIO: UPDATE BILLING ADDRESS
 
     public CheckoutPageFirstHalf clickUpdateBillingAddressButton(){
-        driver.findElement(updateBillingAddressButton).click();
+        List<WebElement> updateAddressesButtons = driver.findElements(updateBillingAddressButton);
+        updateAddressesButtons.get(1).click();
         return this;
     }
  //insert methods to change the billing address
 
-    public List<String> getUpdatedBillingAddressesElements() {
+    private List<String> getUpdatedBillingAddressesDetails() {
 
-        int index = 0;
+        int countAllWebElements = 0;
         ArrayList<String> updatedAddresses = new ArrayList<>();
         ArrayList<String> updatedBillingAddresses = new ArrayList<>();
-        for (WebElement billingElement : driver.findElements(billingAddressInformation)) {
+        for (WebElement billingElement : driver.findElements(deliveryAndBillingAddressInformation)) {
             updatedAddresses.add(billingElement.getText());
         }
-        while (index < updatedAddresses.size()){
+        while (countAllWebElements < updatedAddresses.size()){
             updatedAddresses.remove("Update");
-            index++;
+            countAllWebElements++;
             }
-        int billingAddressIndex = updatedAddresses.indexOf("YOUR BILLING ADDRESS");
-        for(int j = billingAddressIndex; j<updatedAddresses.size(); j++){
-            updatedBillingAddresses.add(updatedAddresses.get(j));
+        int yourBillingAddressIndex = updatedAddresses.indexOf("YOUR BILLING ADDRESS");
+        for(int billingAddresIndex = yourBillingAddressIndex; billingAddresIndex<updatedAddresses.size(); billingAddresIndex++){
+            updatedBillingAddresses.add(updatedAddresses.get(billingAddresIndex));
             }
-        return updatedBillingAddresses;
-
+        billingAddressDetailsList = updatedBillingAddresses;
+        return billingAddressDetailsList;
     }
 
+    public boolean checkBillingAddressDetail(String addressDetail){
+        getUpdatedBillingAddressesDetails();
+        return billingAddressDetailsList.contains(addressDetail);
+    }
+
+    //SCENARIO: UPDATE DELIVERY ADDRESS
+
+    public CheckoutPageFirstHalf clickUpdateDeliveryAddressButton(){
+        List<WebElement> updateAddressesButtons = driver.findElements(updateBillingAddressButton);
+        updateAddressesButtons.get(0).click();
+        return this;
+    }
+    //insert methods to change the delivery address
+
+    private List<String> getUpdatedDeliveryAddressesDetails() {
+
+        int countAllWebElements = 0;
+        ArrayList<String> updatedAddresses = new ArrayList<>();
+        ArrayList<String> updatedDeliveryAddresses = new ArrayList<>();
+        for (WebElement deliveryElement : driver.findElements(deliveryAndBillingAddressInformation)) {
+            updatedAddresses.add(deliveryElement.getText());
+        }
+        while (countAllWebElements < updatedAddresses.size()){
+            updatedAddresses.remove("Update");
+            countAllWebElements++;
+        }
+        int yourDeliveryAddressIndex = updatedAddresses.indexOf("YOUR DELIVERY ADDRESS");
+        for(int deliveryAddresIndex = yourDeliveryAddressIndex; deliveryAddresIndex < updatedAddresses.indexOf("YOUR BILLING ADDRESS"); deliveryAddresIndex++){
+            updatedDeliveryAddresses.add(updatedAddresses.get(deliveryAddresIndex));
+        }
+        deliveryAddressDetailsList = updatedDeliveryAddresses;
+        return deliveryAddressDetailsList;
+    }
+
+    public boolean checkDeliveryAddressDetail(String addressDetail){
+        getUpdatedDeliveryAddressesDetails();
+        return deliveryAddressDetailsList.contains(addressDetail);
+    }
 
 
 
