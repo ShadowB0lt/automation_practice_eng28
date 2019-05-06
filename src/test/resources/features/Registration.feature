@@ -54,4 +54,10 @@ Feature: Registration
     When I view the Address Alias field
     Then I see the value 'My address'
 
-    
+  Scenario: The displayed email on the registration screen defaults to the email from the previous screen
+    Given I have typed a valid email address on the log-in screen
+    And I am on the registration page
+    When I read the email address field
+    Then it is equal to the email address I typed on the log in screen
+
+  
