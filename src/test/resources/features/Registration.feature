@@ -60,4 +60,16 @@ Feature: Registration
     When I read the email address field
     Then it is equal to the email address I typed on the log in screen
 
-  
+  Scenario Outline: The omission of a mandatory field leads to an error on form submission
+    Given I am on the registration page
+    And I have added valid data into the mandatory fields
+    And I have deleted the entry in the field with id <id>
+    When I click the submit button
+    Then I will receive an error containing <error>
+
+    Examples:
+      | id                 | error                   |
+      | customer_firstname | "firstname is required" |
+      | customer_lastname  | "lastname is required"  |
+      | address1           | "address1 is required"  |
+      | city               | "city is required"      |
