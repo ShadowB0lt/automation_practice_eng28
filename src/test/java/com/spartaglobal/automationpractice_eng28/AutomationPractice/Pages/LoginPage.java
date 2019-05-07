@@ -9,7 +9,7 @@ public class LoginPage {
 
     private WebDriver driver;
 
-    private String loginPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+    private String loginPageURL = "http://automationpractice.com/index.php?controller=authentication";
     private By emailField = By.id("email");
     private By passwordField = By.id("passwd");
     private By emailError = By.tagName("ol");
