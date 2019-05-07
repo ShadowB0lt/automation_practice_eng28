@@ -19,7 +19,7 @@ public class CheckoutPageFirstHalf {
     private By billingAddressesElements = By.id("id_address_invoice");
     private By shippingPageButton = By.name("processAddress");
     private By termsAndConditionsButton = By.linkText("(Read the Terms of Service)");
-    private By termsAndConditions = By.xpath("//*[@id=\"order\"]/div[2]/div"); // FIX LATER
+    private By termsAndConditions = By.xpath("//*[@id=\"order\"]/div[2]/div");// FIX LATER
     private By updateBillingAddressButton = By.linkText("Update");
     private By deliveryAndBillingAddressInformation = By.cssSelector("li[class^='address']");
 
@@ -115,8 +115,8 @@ public class CheckoutPageFirstHalf {
         return this;
     }
 
-    public boolean isTermsAndConditionsDisplayed(){
-        return driver.findElement(termsAndConditions).isDisplayed();
+    public int isTermsAndConditionsDisplayed(){
+        return driver.findElements(By.tagName("iframe")).size();
     }
 
  //SCENARIO: UPDATE BILLING ADDRESS
