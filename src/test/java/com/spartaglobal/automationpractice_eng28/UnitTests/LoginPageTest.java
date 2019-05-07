@@ -2,10 +2,10 @@ package com.spartaglobal.automationpractice_eng28.UnitTests;
 
 import static org.junit.Assert.assertTrue;
 
+import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.HomePage;
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.LoginPage;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
@@ -18,11 +18,13 @@ public class LoginPageTest
      */
 
     private static LoginPage loginPage;
+    private static WebDriver driver;
 
     @Before
     public void setUp(){
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\VKapoor\\Documents\\chromedriver_win32\\chromedriver.exe");
-        loginPage = new LoginPage(new ChromeDriver());
+        driver = new ChromeDriver();
+        loginPage = new LoginPage(driver);
         loginPage.goToLoginPage();
     }
 
@@ -90,5 +92,10 @@ public class LoginPageTest
         loginPage.inputPassword("hi");
         loginPage.clickLogInButton();
         Assert.assertEquals(loginPage.getPasswordErrorMessage(), "Invalid password.");
+    }
+
+    @After
+    public void quitDriver(){
+        driver.quit();
     }
 }
