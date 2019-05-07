@@ -12,6 +12,9 @@ import org.openqa.selenium.WebDriver;
 public class RegistrationPage implements KeyReader, KeySender
 {
     private WebDriver driver;
+
+    private static String baseUrl = "";
+
     private static By mrButton = By.id("id_gender1");
     private static By mrsButton = By.id("id_gender2");
 
@@ -19,6 +22,11 @@ public class RegistrationPage implements KeyReader, KeySender
     public RegistrationPage(WebDriver driver)
     {
         this.driver = driver;
+    }
+
+    public void navigateToPage()
+    {
+
     }
 
 
