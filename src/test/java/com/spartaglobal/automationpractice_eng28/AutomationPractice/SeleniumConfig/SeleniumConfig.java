@@ -28,4 +28,9 @@ public class SeleniumConfig {
     public WebDriver getDriver() {
         return driver;
     }
+
+    public void quitDriver(){
+        this.driver.quit();
+    }
+
 }
