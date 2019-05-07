@@ -73,3 +73,10 @@ Feature: Registration
       | customer_lastname  | "lastname is required"  |
       | address1           | "address1 is required"  |
       | city               | "city is required"      |
+
+  Scenario: I can input a date of birth and read the value on the page
+    Given I am on the registration page
+    When I select a date of birth
+    Then That date is visible on the screen.
+
+  Scenario: 
