@@ -32,5 +32,3 @@ public class SeleniumConfig {
     public void quitDriver(){
         this.driver.quit();
     }
-
-}
