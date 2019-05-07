@@ -96,4 +96,11 @@ Feature: Registration
     And I click the submit button
     Then I receive an error stating the phone number is invalid
 
+  Scenario: Check boxes can be simultaneously selected
+    Given I am on the registration page
+    And The 'sign up for our newsletter' checkbox is ticked
+    When I click on the 'receive special offers' tickbox
+    Then I can see that the newsletter checkbox is ticked
+    And I can see that the special offers checkbox is ticked
+
 
