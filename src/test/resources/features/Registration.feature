@@ -79,4 +79,21 @@ Feature: Registration
     When I select a date of birth
     Then That date is visible on the screen.
 
-  Scenario: 
+  Scenario: The values of the address name fields are auto populated by the values of the personal details name fields.
+    Given I am on the registration page
+    When I add a first name and last name in the personal details section
+    Then I can read the first name and last name from the address details section.
+
+  Scenario: The mobile number field does not accept letters
+    Given I am on the registration page
+    When I add the string 0a478909823 into the mobile phone field
+    And I click the submit button
+    Then I receive an error stating the mobile phone number is invalid
+
+  Scenario: The home number field does not accept letters
+    Given I am on the registration page
+    When I add the string 0a478909823 into the home phone field
+    And I click the submit button
+    Then I receive an error stating the phone number is invalid
+
+
