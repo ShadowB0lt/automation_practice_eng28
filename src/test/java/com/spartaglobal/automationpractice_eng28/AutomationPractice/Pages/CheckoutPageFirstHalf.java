@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class CheckoutPageFirstHalf {
 
@@ -115,8 +116,16 @@ public class CheckoutPageFirstHalf {
         return this;
     }
 
-    public int isTermsAndConditionsDisplayed(){
-        return driver.findElements(By.tagName("iframe")).size();
+    public Object getWindow(){
+        Set<String> windowHandles = driver.getWindowHandles();
+        Object [] windowHandlesArray = windowHandles.toArray();
+        return windowHandlesArray[0];
+        }
+
+
+    public boolean isTermsAndConditionsDisplayed(){
+        driver.switchTo().frame("CDwindow-E2EEF4B378C93C5F81265DD6A45BDCDA");
+        return driver.findElement(By.id("cms")).isDisplayed();
     }
 
  //SCENARIO: UPDATE BILLING ADDRESS
