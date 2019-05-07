@@ -12,11 +12,11 @@ public class SeleniumConfig {
     private WebDriver driver;
     private SeleniumPropertiesReader seleniumProperties = new SeleniumPropertiesReader();
 
-    public SeleniumConfig(String browserName){
-        if(browserName.equalsIgnoreCase("chrome")){
+    public SeleniumConfig(String browserName) {
+        if (browserName.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", seleniumProperties.getChromeDriverPath());
             this.driver = new ChromeDriver();
-        } else if (browserName.equalsIgnoreCase("firefox")){
+        } else if (browserName.equalsIgnoreCase("firefox")) {
             System.setProperty("webdriver.gecko.driver", seleniumProperties.getFirefoxDriverPath());
             this.driver = new FirefoxDriver();
         }
@@ -29,6 +29,7 @@ public class SeleniumConfig {
         return driver;
     }
 
-    public void quitDriver(){
+    public void quitDriver() {
         this.driver.quit();
     }
+}
