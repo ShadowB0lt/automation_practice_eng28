@@ -24,6 +24,9 @@ public class RegistrationPage implements KeyReader, KeySender
         this.driver = driver;
     }
 
+    /**
+     * The base url navigates to the 'sign in' page
+     */
     public void navigateToPage()
     {
 
