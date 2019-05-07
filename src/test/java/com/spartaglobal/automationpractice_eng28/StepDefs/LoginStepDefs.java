@@ -20,9 +20,7 @@ public class LoginStepDefs {
 
     @Before
     public void setUp(){
-        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\VKapoor\\Documents\\chromedriver_win32\\chromedriver.exe");
         driver = new SeleniumConfig("chrome");
-//        driver = new ChromeDriver();
         loginPage = new LoginPage(driver.getDriver());
         loginPage.goToLoginPage();
     }
@@ -119,8 +117,8 @@ public class LoginStepDefs {
         Assert.assertEquals(error, "Password is required.");
     }
 
-//    @After
-//    public void quitDriver(){
-//        driver.quit();
-//    }
+    @After
+    public void quitDriver(){
+        driver.quitDriver();
+    }
 }

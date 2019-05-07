@@ -23,16 +23,13 @@ public class LoginPageTest
 
     @Before
     public void setUp(){
-
         driver = new SeleniumConfig("chrome");
         loginPage = new LoginPage(driver.getDriver());
         loginPage.goToLoginPage();
-
     }
 
     @Test
-    public void testEmailInput()
-    {
+    public void testEmailInput() {
         loginPage.inputEmail("hello");
         String actual = loginPage.checkEmailISDisplayed();
         String email = "hello";
@@ -98,6 +95,6 @@ public class LoginPageTest
 
     @After
     public void quitDriver(){
-        driver.quit();
+        driver.quitDriver();
     }
 }
