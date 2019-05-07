@@ -30,18 +30,18 @@ public class LoginStepDefs {
 
 
     @Given("I enter a valid email and password")
-    public void given1(){
+    public void I_enter_a_valid_email_and_password(){
         loginPage.inputEmail("engineering.28.sstvw@gmail.com");
         loginPage.inputPassword("3NG_s8SSTVW");
     }
 
     @When("I click sign in")
-    public void when1(){
+    public void I_click_sign_in(){
         loginPage.clickLogInButton();
     }
 
     @Then("I am taken to the My Account page")
-    public void then1(){
+    public void I_am_taken_to_the_My_Account_page(){
         String URL = "http://automationpractice.com/index.php?controller=my-account";
         Assert.assertEquals(loginPage.getCurrentURL(), URL);
     }
@@ -51,18 +51,18 @@ public class LoginStepDefs {
 
 
     @Given("I am on the login page")
-    public void given2(){
+    public void I_am_on_the_login_page(){
     }
 
     @When("I input the necessary details with email {string}")
-    public void when2(String email){
+    public void I_input_the_necessary_details_with_email(String email){
         loginPage.inputEmail(email);
         loginPage.inputPassword("randomPassword1");
         loginPage.clickLogInButton();
     }
 
     @Then("I get the corresponding email error {string}")
-    public void then2(String error){
+    public void I_get_the_corresponding_email_error(String error){
         String errorMessage = loginPage.getEmailErrorMessage();
         Assert.assertEquals(errorMessage, error);
     }
@@ -72,14 +72,14 @@ public class LoginStepDefs {
 
 
     @When("I input the correct email with an invalid password {string}")
-    public void when3(String password){
+    public void I_input_the_correct_email_with_an_invalid_password(String password){
         loginPage.inputEmail("engineering.28.sstvw@gmail.com");
         loginPage.inputPassword(password);
         loginPage.clickLogInButton();
     }
 
     @Then("I get the corresponding password error {string}")
-    public void then3(String error){
+    public void I_get_the_corresponding_password_error(String error){
         String errorMessage = loginPage.getPasswordErrorMessage();
         Assert.assertEquals(errorMessage, error);
     }
@@ -89,14 +89,14 @@ public class LoginStepDefs {
 
 
     @When("I input a password but no email")
-    public void when5(){
+    public void I_input_a_password_but_no_email(){
         loginPage.inputPassword("randomPassowrd1");
         loginPage.clickLogInButton();
     }
 
 
     @Then("I receive an email error message")
-    public void then4(){
+    public void I_receive_an_email_error_message(){
         String error = loginPage.getEmailErrorMessage();
         Assert.assertEquals(error, "An email address required.");
     }
@@ -106,13 +106,13 @@ public class LoginStepDefs {
 
 
     @When("I input an email but no password")
-    public void when4(){
+    public void I_input_an_email_but_no_password(){
         loginPage.inputEmail("test@test.com");
         loginPage.clickLogInButton();
     }
 
     @Then("I receive a password error message")
-    public void then5(){
+    public void I_receive_a_password_error_message(){
         String error = loginPage.getPasswordErrorMessage();
         Assert.assertEquals(error, "Password is required.");
     }
