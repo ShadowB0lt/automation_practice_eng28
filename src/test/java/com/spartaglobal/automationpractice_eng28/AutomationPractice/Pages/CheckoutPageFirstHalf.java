@@ -124,8 +124,9 @@ public class CheckoutPageFirstHalf {
 
 
     public boolean isTermsAndConditionsDisplayed(){
-        driver.switchTo().frame("CDwindow-E2EEF4B378C93C5F81265DD6A45BDCDA");
-        return driver.findElement(By.id("cms")).isDisplayed();
+        driver.findElement(By.xpath("//*[@id=\"fancybox-frame1557223666607\"]"));
+        driver.switchTo().frame(1);
+        return driver.findElement(By.id("fancybox-frame1557221967585")).isDisplayed();
     }
 
  //SCENARIO: UPDATE BILLING ADDRESS
@@ -195,6 +196,10 @@ public class CheckoutPageFirstHalf {
         getUpdatedDeliveryAddressesDetails();
         return deliveryAddressDetailsList.contains(addressDetail);
     }
+
+    //Choose a different delivery address
+
+
 
 
 
