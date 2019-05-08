@@ -54,4 +54,53 @@ Feature: Registration
     When I view the Address Alias field
     Then I see the value 'My address'
 
-    
+  Scenario: The displayed email on the registration screen defaults to the email from the previous screen
+    Given I have typed a valid email address on the log-in screen
+    And I am on the registration page
+    When I read the email address field
+    Then it is equal to the email address I typed on the log in screen
+
+  Scenario Outline: The omission of a mandatory field leads to an error on form submission
+    Given I am on the registration page
+    And I have added valid data into the mandatory fields
+    And I have deleted the entry in the field with id <id>
+    When I click the submit button
+    Then I will receive an error containing <error>
+
+    Examples:
+      | id                 | error                   |
+      | customer_firstname | "firstname is required" |
+      | customer_lastname  | "lastname is required"  |
+      | address1           | "address1 is required"  |
+      | city               | "city is required"      |
+
+  Scenario: I can input a date of birth and read the value on the page
+    Given I am on the registration page
+    When I select a date of birth
+    Then That date is visible on the screen.
+
+  Scenario: The values of the address name fields are auto populated by the values of the personal details name fields.
+    Given I am on the registration page
+    When I add a first name and last name in the personal details section
+    Then I can read the first name and last name from the address details section.
+
+  Scenario: The mobile number field does not accept letters
+    Given I am on the registration page
+    When I add the string 0a478909823 into the mobile phone field
+    And I click the submit button
+    Then I receive an error stating the mobile phone number is invalid
+
+  Scenario: The home number field does not accept letters
+    Given I am on the registration page
+    When I add the string 0a478909823 into the home phone field
+    And I click the submit button
+    Then I receive an error stating the phone number is invalid
+
+  Scenario: Check boxes can be simultaneously selected
+    Given I am on the registration page
+    And The 'sign up for our newsletter' checkbox is ticked
+    When I click on the 'receive special offers' tickbox
+    Then I can see that the newsletter checkbox is ticked
+    And I can see that the special offers checkbox is ticked
+
+

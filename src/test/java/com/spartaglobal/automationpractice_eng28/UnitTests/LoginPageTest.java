@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.HomePage;
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.LoginPage;
+import com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig.SeleniumConfig;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,19 +19,17 @@ public class LoginPageTest
      */
 
     private static LoginPage loginPage;
-    private static WebDriver driver;
+    private static SeleniumConfig driver;
 
     @Before
     public void setUp(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\VKapoor\\Documents\\chromedriver_win32\\chromedriver.exe");
-        driver = new ChromeDriver();
-        loginPage = new LoginPage(driver);
+        driver = new SeleniumConfig("chrome");
+        loginPage = new LoginPage(driver.getDriver());
         loginPage.goToLoginPage();
     }
 
     @Test
-    public void testEmailInput()
-    {
+    public void testEmailInput() {
         loginPage.inputEmail("hello");
         String actual = loginPage.checkEmailISDisplayed();
         String email = "hello";
@@ -96,6 +95,6 @@ public class LoginPageTest
 
     @After
     public void quitDriver(){
-        driver.quit();
+        driver.quitDriver();
     }
 }
