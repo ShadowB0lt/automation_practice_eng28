@@ -46,17 +46,41 @@ public class RegistrationPageTests
 
     }
 
+    @Test
+    public void testCheckButton()
+    {
+        regPage.selectMrButton();
+        regPage.getClickedTitle();
+    }
+
+    @Test
     public void testSubmit()
     {
         regPage.clickRegister();
-
+        String errorList = driver.findElement(By.className("alert-danger")).getText();
+        Assert.assertTrue(errorList.contains("is required"));
     }
 
-    @AfterClass
-    public static void tearDown()
+    @Test
+    public void testNameError()
     {
-        driver.quit();
+        regPage.sendKeysTo("hi42\t", "customer_firstname");
+        Assert.assertTrue(regPage.getCustNameCss().contains("241, 51"));
     }
+
+    @Test
+    public void testFormCompletion()
+    {
+        regPage.completeForm();
+        regPage.clickRegister();
+        Assert.assertTrue(driver.getCurrentUrl().contains("my-account"));
+    }
+
+//    @AfterClass
+//    public static void tearDown()
+//    {
+//        driver.quit();
+//    }
 
 
 }
