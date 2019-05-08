@@ -21,6 +21,8 @@ public class RegistrationPage implements KeyReader, KeySender
     private static By mrsButton = By.id("id_gender2");
     private static By emailCreate = By.id("email_create");
     private static By emailSubmit = By.id("SubmitCreate");
+
+    private static By regSubmit = By.id("submitAccount");
     private static String emailCreateId = "email_create";
 
 
@@ -48,6 +50,11 @@ public class RegistrationPage implements KeyReader, KeySender
         String emailFinish = "@test.com";
         return emailBase + random.nextInt(14000000) + emailFinish;
 
+    }
+
+    public void clickRegister()
+    {
+        driver.findElement(regSubmit).click();
     }
 
     @Override
