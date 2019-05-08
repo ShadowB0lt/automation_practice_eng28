@@ -1,15 +1,15 @@
 package com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages;
 
+import com.spartaglobal.automationpractice_eng28.AutomationPractice.KeyHandlers.KeySender;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-public class CheckoutPageFirstHalf {
+public class CheckoutPageFirstHalf implements KeySender {
 
     private WebDriver driver;
     private String checkoutPageURL = "http://automationpractice.com/index.php?controller=order&step=1";
@@ -23,12 +23,14 @@ public class CheckoutPageFirstHalf {
     private By termsAndConditions = By.xpath("//*[@id=\"order\"]/div[2]/div");// FIX LATER
     private By updateBillingAddressButton = By.linkText("Update");
     private By deliveryAndBillingAddressInformation = By.cssSelector("li[class^='address']");
-
+    private By deliveryAddressDropDown = By.id("id_address_delivery");
+    private By stateDropDownBox = By.id("id_state");
 
     private List<String> deliveryAddressesList;
     private List<String> billingAddressesList;
     private List<String> billingAddressDetailsList;
     private List<String> deliveryAddressDetailsList;
+    private List<String> deliveryAddressesDropDownList;
 
     public CheckoutPageFirstHalf(WebDriver driver) {
         this.driver = driver;
@@ -44,15 +46,39 @@ public class CheckoutPageFirstHalf {
         driver.navigate().to(checkoutPageURL);
     }
 
-    public CheckoutPageFirstHalf togglebillingAndDeliveryButtonDropDownBox(){
+    public String generateRandomAddress(String candidateChars, int length){
+        StringBuilder stringBuilder = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++){
+            stringBuilder.append(candidateChars.charAt(random.nextInt(candidateChars.length())));
+        }
+        return stringBuilder.toString();
+    }
+
+    public void deleteKeys(By element){
+        driver.findElement(element).clear();
+    }
+
+    public CheckoutPageFirstHalf toggleBillingAndDeliveryButtonDropDownBox(){
         findElement(billingAndDeliveryButton).click();
         return this;
+    }
+
+    public boolean checkToggleButton(){
+        return findElement(billingAndDeliveryButton).isSelected();
     }
 
     //Scenario: add new address
 
     public CheckoutPageFirstHalf clickAddNewAddress(){
         findElement(addNewAddressButton).click();
+        return this;
+    }
+
+    public CheckoutPageFirstHalf selectStateFromDropDown(String state){
+        Select stateDropdown = new Select(driver.findElement(stateDropDownBox));
+        stateDropdown.selectByVisibleText(state);
         return this;
     }
 
@@ -199,6 +225,54 @@ public class CheckoutPageFirstHalf {
 
     //Choose a different delivery address
 
+    private List<String> getDeliveryAddresses(){
+        List<String> deliveryAddresses = new ArrayList<>();
+        WebElement dropdown = driver.findElement(deliveryAddressDropDown);
+
+        List<WebElement> deliveryAddressOptions = dropdown.findElements(By.tagName("option"));
+        Iterator<WebElement> it = deliveryAddressOptions.iterator();
+        while (it.hasNext()) {
+            deliveryAddresses.add(it.next().getText().trim());
+            deliveryAddressesDropDownList = deliveryAddresses;
+        }
+        return deliveryAddressesDropDownList;
+    }
+
+    public void selectDeliveryAddress(String addressName) {
+        //Create list of continents from getContinentElementsAsStringList
+        getDeliveryAddresses();
+        if (deliveryAddressesDropDownList.contains(addressName)) {
+            // You need to create a Select object but call the individual element that contains
+            // If you check the drop down
+            Select deliveryAddressOptions = new Select(driver.findElement(deliveryAddressDropDown));
+            deliveryAddressOptions.selectByVisibleText(addressName);
+        } else if (!deliveryAddressesDropDownList.contains(addressName)) {
+            System.out.println("Please select one of the below options");
+
+            for (String deliveryAddress : deliveryAddressesDropDownList) {
+                System.out.println(deliveryAddress);
+            }
+        }
+    }
+
+    public boolean checkAddressValueIsSelected(String deliveryAddress){
+        boolean selectedCorrectly;
+
+        Select deliveryAddressOptions = new Select(driver.findElement(deliveryAddressDropDown));
+        selectedCorrectly = deliveryAddressOptions.getFirstSelectedOption().getText().trim().equals(deliveryAddress);
+
+        return selectedCorrectly;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -219,45 +293,49 @@ public class CheckoutPageFirstHalf {
 
 
 //temporary methods to get to the address page
-     public CheckoutPageFirstHalf step1(){
+     public CheckoutPageFirstHalf goToHomePage(){
         driver.findElement(By.id("header_logo")).click();
         return this;
      }
 
-    public CheckoutPageFirstHalf step2(){
+    public CheckoutPageFirstHalf clickAddToCart(){
         driver.findElement(By.xpath("//*[@id=\"homefeatured\"]/li[2]/div/div[2]/div[2]/a[1]")).click();
         return this;
     }
 
-    public CheckoutPageFirstHalf step3(){
+    public CheckoutPageFirstHalf clickProceedToCheckout(){
         driver.findElement(By.linkText("Proceed to checkout")).click();
         return this;
     }
 
-    public CheckoutPageFirstHalf step4() {
+    public CheckoutPageFirstHalf clickSecondProceedToCheckout() {
         driver.findElement(By.linkText("Proceed to checkout")).click();
         return this;
     }
 
-    public CheckoutPageFirstHalf step5(){
+    public CheckoutPageFirstHalf inputUserName(){
         driver.findElement(By.id("email")).sendKeys("engineering.28.sstvw@gmail.com");
         return this;
     }
 
-    public CheckoutPageFirstHalf step6(){
+    public CheckoutPageFirstHalf inputPassWord(){
         driver.findElement(By.id("passwd")).sendKeys("3NG_s8SSTVW");
         return this;
     }
 
-    public CheckoutPageFirstHalf step7(){
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public CheckoutPageFirstHalf clickToLogin(){
         driver.findElement(By.id("SubmitLogin")).click();
         return this;
     }
 
+    @Override
+    public WebDriver getDriver() {
+        return this.driver;
+    }
+
+    @Override
+    public void sendKeysTo(String input, String classid) {
+        findElement(By.id(classid)).sendKeys(input);
+    }
 
 }
