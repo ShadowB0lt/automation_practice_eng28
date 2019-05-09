@@ -96,7 +96,7 @@ public class RegistrationPage implements KeyReader, KeySender
         List<WebElement> myElements = driver.findElements(By.name("id_gender"));
         return myElements.get(1).isSelected();
     }
-    
+
     public void completeForm()
     {
         sendKeysTo("EngTwentyEight", "customer_firstname");
@@ -113,6 +113,45 @@ public class RegistrationPage implements KeyReader, KeySender
     {
         Select stateSelector = new Select(driver.findElement(By.id("id_state")));
         stateSelector.selectByVisibleText(state);
+    }
+
+    public RegistrationPage chooseDay(int day)
+    {
+        Select daySelector = new Select(driver.findElement(By.id("days")));
+        daySelector.selectByValue(Integer.toString(day));
+        return this;
+    }
+
+    public int getSelectedDay()
+    {
+        Select mySelect = new Select(driver.findElement(By.id("days")));
+        return Integer.parseInt(mySelect.getFirstSelectedOption().getAttribute("value"));
+    }
+
+    public RegistrationPage chooseMonth(int month)
+    {
+        Select monthSelector = new Select(driver.findElement(By.id("months")));
+        monthSelector.selectByValue(Integer.toString(month));
+        return this;
+    }
+
+    public String getSelectedMonth()
+    {
+        Select monthSelector = new Select(driver.findElement(By.id("months")));
+        return monthSelector.getFirstSelectedOption().getText().trim();
+    }
+
+    public RegistrationPage chooseYear(int year)
+    {
+        Select yearSelector = new Select(driver.findElement(By.id("years")));
+        yearSelector.selectByValue(Integer.toString(year));
+        return this;
+    }
+
+    public int getSelectedYear()
+    {
+        Select yearSelector = new Select(driver.findElement(By.id("years")));
+        return Integer.parseInt(yearSelector.getFirstSelectedOption().getAttribute("value"));
     }
 
     public void clearField(String fieldId)
