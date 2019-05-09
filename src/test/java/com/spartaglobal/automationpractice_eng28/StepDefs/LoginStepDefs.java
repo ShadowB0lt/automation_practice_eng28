@@ -18,15 +18,27 @@ public class LoginStepDefs {
     private static LoginPage loginPage;
     private static SeleniumConfig driver;
 
+<<<<<<< HEAD
 
     @Before("@LoginTest")
+=======
+    @Before
+>>>>>>> dev
     public void setUp(){
         driver = new SeleniumConfig("chrome");
         loginPage = new LoginPage(driver.getDriver());
         loginPage.goToLoginPage();
     }
+<<<<<<< HEAD
     //Scenario: As a registered user, I can login
 
+=======
+
+
+    //Scenario: As a registered user, I can login
+
+
+>>>>>>> dev
     @Given("I enter a valid email and password")
     public void I_enter_a_valid_email_and_password(){
         loginPage.inputEmail("engineering.28.sstvw@gmail.com");
@@ -44,7 +56,14 @@ public class LoginStepDefs {
         Assert.assertEquals(loginPage.getCurrentURL(), URL);
     }
 
+<<<<<<< HEAD
     // Scenario Outline: Inputting an invalid email generates an error
+=======
+
+    // Scenario Outline: Inputting an invalid email generates an error
+
+
+>>>>>>> dev
     @Given("I am on the login page")
     public void I_am_on_the_login_page(){
     }
@@ -99,6 +118,10 @@ public class LoginStepDefs {
 
     // Scenario: Inputting an email but not a password
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
     @When("I input an email but no password")
     public void I_input_an_email_but_no_password(){
         loginPage.inputEmail("test@test.com");
@@ -111,7 +134,11 @@ public class LoginStepDefs {
         Assert.assertEquals(error, "Password is required.");
     }
 
+<<<<<<< HEAD
     @After("@LoginTest")
+=======
+    @After
+>>>>>>> dev
     public void quitDriver(){
         driver.quitDriver();
     }

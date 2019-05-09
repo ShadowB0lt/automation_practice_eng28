@@ -6,17 +6,27 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class SeleniumConfig {
+public class SeleniumConfig
+{
 
 
     private WebDriver driver;
     private SeleniumPropertiesReader seleniumProperties = new SeleniumPropertiesReader();
 
+<<<<<<< HEAD
     public SeleniumConfig(String browserName){
         if(browserName.equalsIgnoreCase("chrome")){
             System.setProperty("webdriver.chrome.driver", seleniumProperties.getChromeDriverPath());
             this.driver = new ChromeDriver();
         } else if (browserName.equalsIgnoreCase("firefox")){
+=======
+
+    public SeleniumConfig(String browserName) {
+        if (browserName.equalsIgnoreCase("chrome")) {
+            System.setProperty("webdriver.chrome.driver", seleniumProperties.getChromeDriverPath());
+            this.driver = new ChromeDriver();
+        } else if (browserName.equalsIgnoreCase("firefox")) {
+>>>>>>> dev
             System.setProperty("webdriver.gecko.driver", seleniumProperties.getFirefoxDriverPath());
             this.driver = new FirefoxDriver();
         }
@@ -24,7 +34,15 @@ public class SeleniumConfig {
         this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    public WebDriver getDriver() {
+    public WebDriver getDriver()
+    {
         return driver;
     }
+
+    public void quitDriver()
+    {
+        this.driver.quit();
+    }
+
+
 }
