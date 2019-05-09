@@ -163,7 +163,11 @@ public class CheckoutPageFirstHalf implements KeySender {
 
     public boolean isTermsAndConditionsDisplayed(){
         System.out.println(driver.findElement(By.tagName("iframe")).getText());
-        return driver.findElement(By.tagName("iframe")).isDisplayed();
+        driver.get("http://automationpractice.com/index.php?controller=order");
+
+        driver.switchTo().frame("fancybox-inner");
+
+        return driver.findElement(By.className("fancybox-inner")).isDisplayed();
     }
 
  //SCENARIO: UPDATE BILLING ADDRESS
