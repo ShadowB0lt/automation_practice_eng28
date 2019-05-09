@@ -4,14 +4,12 @@ import com.spartaglobal.automationpractice_eng28.AutomationPractice.KeyHandlers.
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.KeyHandlers.KeySender;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-<<<<<<< HEAD
-=======
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 import java.util.Random;
->>>>>>> dev
+
 
 
 /**
@@ -21,12 +19,7 @@ public class RegistrationPage implements KeyReader, KeySender
 {
     private WebDriver driver;
 
-<<<<<<< HEAD
-    private static String baseUrl = "";
 
-    private static By mrButton = By.id("id_gender1");
-    private static By mrsButton = By.id("id_gender2");
-=======
     private static String baseUrl = "http://automationpractice.com/index.php?controller=authentication";
 
     private static By mrButton = By.id("id_gender1");
@@ -40,7 +33,7 @@ public class RegistrationPage implements KeyReader, KeySender
     private static By custFirstNmErr = By.cssSelector(".form-group.form-error input");
     private static By custFirstNmOk = By.cssSelector(".form-group.form-ok input");
     private static String emailCreateId = "email_create";
->>>>>>> dev
+
 
 
     public RegistrationPage(WebDriver driver)
@@ -48,18 +41,7 @@ public class RegistrationPage implements KeyReader, KeySender
         this.driver = driver;
     }
 
-<<<<<<< HEAD
-    public void navigateToPage()
-    {
 
-    }
-
-
-    @Override
-    public WebDriver getDriver()
-    {
-        return driver;
-=======
     @Override
     public WebDriver getDriver()
     {
@@ -93,7 +75,6 @@ public class RegistrationPage implements KeyReader, KeySender
     public void clickRegister()
     {
         driver.findElement(regSubmit).click();
->>>>>>> dev
     }
 
     public RegistrationPage selectMrButton()
@@ -108,13 +89,6 @@ public class RegistrationPage implements KeyReader, KeySender
         return this;
     }
 
-<<<<<<< HEAD
-    public String getClickedTitle()
-    {
-        return "";
-    }
-
-=======
     public boolean isMrSelected()
     {
         List<WebElement> myElements = driver.findElements(By.name("id_gender"));
@@ -193,7 +167,5 @@ public class RegistrationPage implements KeyReader, KeySender
     {
         return driver.findElement(errorList).getText();
     }
->>>>>>> dev
-
 
 }

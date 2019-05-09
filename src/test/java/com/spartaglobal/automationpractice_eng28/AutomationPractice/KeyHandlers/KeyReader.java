@@ -8,11 +8,7 @@ public interface KeyReader {
     public WebDriver getDriver();
 
     //Key Sender
-<<<<<<< HEAD
-    default String readKeys(String input, String classid){
-=======
     default String readKeys(String classid){
->>>>>>> dev
         return getDriver().findElement(By.id(classid)).getAttribute("value");
     }
 }
