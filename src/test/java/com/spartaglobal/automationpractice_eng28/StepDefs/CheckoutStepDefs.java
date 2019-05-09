@@ -17,19 +17,14 @@ public class CheckoutStepDefs {
     private static SeleniumConfig driver;
     private static String randomAddressNickName;
     private static String selectAddress;
+    private static String comment;
 
     @Before
     public void setUp(){
         driver = new SeleniumConfig("chrome");
         checkoutPage = new CheckoutPageFirstHalf(driver.getDriver());
-        checkoutPage.goToCheckOutPage();
         checkoutPage.goToHomePage();
-        checkoutPage.addProductToCart();
-        checkoutPage.clickProceedToCheckout();
-        checkoutPage.clickSecondProceedToCheckout();
-        checkoutPage.inputUserName();
-        checkoutPage.inputPassWord();
-        checkoutPage.clickToLogin();
+        checkoutPage.navigateToCheckout();
     }
 
     //Scenario: I would like to add a new address
@@ -137,9 +132,7 @@ public class CheckoutStepDefs {
     }
     @Then("The updated delivery address is visible and displayed correctly")
     public void the_updated_delivery_address_is_visible_and_displayed_correctly() {
-
-
-
+        Assert.assertTrue(checkoutPage.checkDeliveryAddress(randomAddressNickName));
     }
 
 
@@ -221,20 +214,17 @@ public class CheckoutStepDefs {
 
     @When("I click on the comment box")
     public void i_click_on_the_comment_box() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
     }
 
     @And("I type in the comment that I want to add")
     public void i_type_in_the_comment_that_I_want_to_add() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        comment = "Deliver tomorrow";
+        checkoutPage.inputComment(comment);
     }
 
     @Then("The comment has been added to the order")
     public void the_comment_has_been_added_to_the_order() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        Assert.assertEquals(checkoutPage.checkCommentIsOnThePage(), comment);
     }
 
 
@@ -242,26 +232,19 @@ public class CheckoutStepDefs {
 
     @Given("terms of service is unticked")
     public void terms_of_service_is_unticked() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
     }
 
     @When("I click the proceed to checkout button")
     public void i_click_the_proceed_to_checkout_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        checkoutPage.getToPaymentPage();
     }
 
     @Then("A message appears to accept terms and conditions before proceeding")
     public void a_message_appears_to_accept_terms_and_conditions_before_proceeding() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        Assert.assertEquals(checkoutPage.errorMessage(), "You must agree to the terms of service before continuing.");
     }
 
-    @After
-    public void quitDriver(){
-            driver.quitDriver();
-        }
+
 }
 
 

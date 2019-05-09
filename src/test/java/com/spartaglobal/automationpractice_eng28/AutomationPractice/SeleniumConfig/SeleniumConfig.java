@@ -1,8 +1,10 @@
 package com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +26,7 @@ public class SeleniumConfig
         }
 
         this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        this.driver.manage().window().maximize();
 
     }
 
@@ -35,6 +38,14 @@ public class SeleniumConfig
     public void quitDriver()
     {
         this.driver.quit();
+    }
+
+    private Actions actionOnWebElement(){
+        return new Actions(driver);
+    }
+
+    public void moveToElement(By byFinder){
+        actionOnWebElement().moveToElement(driver.findElement(byFinder));
     }
 
 

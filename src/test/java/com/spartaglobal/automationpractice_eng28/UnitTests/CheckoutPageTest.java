@@ -2,7 +2,6 @@ package com.spartaglobal.automationpractice_eng28.UnitTests;
 
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.CheckoutPageFirstHalf;
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig.SeleniumConfig;
-import com.sun.source.tree.AssertTree;
 import cucumber.api.java.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,8 +16,7 @@ public class CheckoutPageTest {
     public void setUp() {
         driver = new SeleniumConfig("chrome");
         checkoutPage = new CheckoutPageFirstHalf(driver.getDriver());
-        checkoutPage.goToCheckOutPage();
-        checkoutPage.goToHomePage().addProductToCart().clickProceedToCheckout().clickSecondProceedToCheckout().inputUserName().inputPassWord().clickToLogin();
+        checkoutPage.navigateToCheckout();
     }
 
     @Test
@@ -62,10 +60,18 @@ public class CheckoutPageTest {
         Assert.assertEquals(checkoutPage.getConfirmationOfOrder(), "Your order on My Store is complete.");
     }
 
-    @After
-    public void quitDriver(){
-        driver.quitDriver();
+    @Test
+    public void testInputtingAComment(){
+        checkoutPage.inputComment("del");
+        Assert.assertEquals(checkoutPage.checkCommentIsOnThePage(), "del");
     }
+
+    @Test
+    public void testTermsAndConditionErrorMessage(){
+        checkoutPage.getToShippingPage().getToPaymentPage();
+        Assert.assertEquals(checkoutPage.errorMessage(),"You must agree to the terms of service before continuing.");
+    }
+
 }
 
 

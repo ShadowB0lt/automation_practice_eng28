@@ -1,9 +1,11 @@
 package com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages;
 
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.KeyHandlers.KeySender;
+import com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig.SeleniumConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.*;
@@ -11,7 +13,8 @@ import java.util.*;
 public class CheckoutPageFirstHalf implements KeySender {
 
     private WebDriver driver;
-    private String checkoutPageURL = "http://automationpractice.com/index.php?controller=order&step=1";
+    private SeleniumConfig mover = new SeleniumConfig("chrome");
+    private String homePageURL = "http://automationpractice.com/index.php";
     private By billingAndDeliveryButton = By.id("addressesAreEquals");
     private By addNewAddressButton = By.linkText("Add a new address");
     private By saveNewAddressButton = By.id("submitAddress");
@@ -32,6 +35,8 @@ public class CheckoutPageFirstHalf implements KeySender {
     private By checkOrderConfirmation = By.className("alert");
     private By bankWirePaymentButton = By.className("bankwire");
     private By bankWireOrderConfirmation = By.className("cheque-indent");
+    private By commentBox = By.tagName("textarea");
+    private By termsAndConditionErrorMessage = By.className("fancybox-error");
 
     private List<String> deliveryAddressesList;
     private List<String> billingAddressesList;
@@ -49,8 +54,8 @@ public class CheckoutPageFirstHalf implements KeySender {
     public List<WebElement> findElements(By element){
         return driver.findElements(element);}
 
-    public void goToCheckOutPage(){
-        driver.navigate().to(checkoutPageURL);
+    public void goToHomePage(){
+        driver.navigate().to(homePageURL);
     }
 
     public String generateRandomAddress(String candidateChars, int length){
@@ -314,9 +319,40 @@ public class CheckoutPageFirstHalf implements KeySender {
 
     }
 
+    //Scenario: I would like to add a comment to the order
 
+    public CheckoutPageFirstHalf inputComment(String comment){
+        driver.findElement(commentBox).sendKeys(comment);
+        return this;
+    }
 
+    public String checkCommentIsOnThePage(){
+        return driver.findElement(commentBox).getAttribute("value");
+    }
 
+    //Scenario: I would like to continue with my purchase without accepting the terms and conditions
+
+    public String errorMessage(){
+        return driver.findElement(termsAndConditionErrorMessage).getText();
+
+    }
+
+    private Actions actionOnWebElement(){
+        return new Actions(driver);
+    }
+
+    public void moveToElement(By byFinder){
+        actionOnWebElement().moveToElement(driver.findElement(byFinder));
+    }
+
+    public void addProduct() {
+
+        WebElement element = driver.findElement(By.className("product-image-container"));
+        Actions action = new Actions(driver);
+        action.moveToElement(element).build().perform();
+        WebElement subElement = driver.findElement(By.linkText("Add to cart"));
+        subElement.click();
+    }
 
 
 
@@ -343,21 +379,14 @@ public class CheckoutPageFirstHalf implements KeySender {
 
 
 //temporary methods to get to the address page
-     public CheckoutPageFirstHalf goToHomePage(){
-        driver.findElement(By.id("header_logo")).click();
-        return this;
-     }
+
 
 
      public CheckoutPageFirstHalf addProductToCart(){
+        mover.moveToElement(By.className("product-image-container"));
         driver.findElement(By.linkText("Add to cart")).click();
         return this;
      }
-
-    public CheckoutPageFirstHalf clickAddToCart(){
-        driver.findElement(By.xpath("//*[@id=\"homefeatured\"]/li[2]/div/div[2]/div[2]/a[1]")).click();
-        return this;
-    }
 
     public CheckoutPageFirstHalf clickProceedToCheckout(){
         driver.findElement(By.linkText("Proceed to checkout")).click();
@@ -380,6 +409,17 @@ public class CheckoutPageFirstHalf implements KeySender {
     }
 
     public CheckoutPageFirstHalf clickToLogin(){
+        driver.findElement(By.id("SubmitLogin")).click();
+        return this;
+    }
+
+    public CheckoutPageFirstHalf navigateToCheckout(){
+        driver.findElement(By.className("product-name")).click();
+        driver.findElement(By.linkText("Add to cart"));
+        driver.findElement(By.linkText("Proceed to checkout")).click();
+        driver.findElement(By.linkText("Proceed to checkout")).click();
+        driver.findElement(By.id("email")).sendKeys("engineering.28.sstvw@gmail.com");
+        driver.findElement(By.id("passwd")).sendKeys("3NG_s8SSTVW");
         driver.findElement(By.id("SubmitLogin")).click();
         return this;
     }
