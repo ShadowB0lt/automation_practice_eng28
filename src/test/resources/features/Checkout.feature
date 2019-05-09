@@ -1,3 +1,4 @@
+@CheckoutTests
 Feature: Checkout
 
   Scenario: I would like to add a new address
