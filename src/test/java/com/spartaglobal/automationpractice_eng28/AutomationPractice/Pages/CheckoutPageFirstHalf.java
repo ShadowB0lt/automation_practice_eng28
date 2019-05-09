@@ -90,21 +90,6 @@ public class CheckoutPageFirstHalf implements KeySender {
     }
 
     //INSERT METHODS FOR FILLING OUT FORM
-//    public CheckoutPageFirstHalf completeUpdateAddressForm(){
-//        driver.deleteKeys(By.id("firstname"));
-//        driver.sendKeysTo(driver.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10), "firstname");
-//        driver.deleteKeys(By.id("lastname"));
-//        driver.sendKeysTo(driver.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10),"lastname");
-//        driver.deleteKeys(By.id("address1"));
-//        driver.sendKeysTo(driver.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10), "address1");
-//        driver.deleteKeys(By.id("city"));
-//        driver.sendKeysTo(driver.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10), "city");
-//        driver.selectStateFromDropDown("California");
-//        driver.deleteKeys(By.id("postcode"));
-//        driver.sendKeysTo("90212", "postcode");
-//        driver.deleteKeys(By.id("phone_mobile"));
-//        driver.sendKeysTo(driver.generateRandomAddress("1234567890", 9), "phone_mobile");
-//    }
 
     public CheckoutPageFirstHalf clickSaveAddressButton(){
         findElement(saveNewAddressButton).click();
@@ -408,5 +393,6 @@ public class CheckoutPageFirstHalf implements KeySender {
     public void sendKeysTo(String input, String classid) {
         findElement(By.id(classid)).sendKeys(input);
     }
+
 
 }
