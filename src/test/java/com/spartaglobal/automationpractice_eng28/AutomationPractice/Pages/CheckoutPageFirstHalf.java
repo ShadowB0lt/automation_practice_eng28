@@ -13,7 +13,6 @@ import java.util.*;
 public class CheckoutPageFirstHalf implements KeySender {
 
     private WebDriver driver;
-    private SeleniumConfig mover = new SeleniumConfig("chrome");
     private String homePageURL = "http://automationpractice.com/index.php";
     private By billingAndDeliveryButton = By.id("addressesAreEquals");
     private By addNewAddressButton = By.linkText("Add a new address");
