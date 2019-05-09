@@ -19,11 +19,10 @@ public class CheckoutStepDefs {
     private static String selectAddress;
     private static String comment;
 
-    @Before
+    @Before("@CheckoutTests")
     public void setUp(){
         driver = new SeleniumConfig("chrome");
         checkoutPage = new CheckoutPageFirstHalf(driver.getDriver());
-        checkoutPage.goToHomePage();
         checkoutPage.navigateToCheckout();
     }
 
@@ -244,7 +243,10 @@ public class CheckoutStepDefs {
         Assert.assertEquals(checkoutPage.errorMessage(), "You must agree to the terms of service before continuing.");
     }
 
-
+    @After("@CheckoutTests")
+    public void quitDriver(){
+        driver.quitDriver();
+    }
 }
 
 

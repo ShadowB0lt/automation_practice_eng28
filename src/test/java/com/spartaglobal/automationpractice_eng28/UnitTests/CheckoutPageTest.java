@@ -2,7 +2,7 @@ package com.spartaglobal.automationpractice_eng28.UnitTests;
 
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.CheckoutPageFirstHalf;
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig.SeleniumConfig;
-import cucumber.api.java.After;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,13 +12,13 @@ public class CheckoutPageTest {
     private static CheckoutPageFirstHalf checkoutPage;
     private static SeleniumConfig driver;
 
+
     @Before
     public void setUp() {
         driver = new SeleniumConfig("chrome");
         checkoutPage = new CheckoutPageFirstHalf(driver.getDriver());
         checkoutPage.navigateToCheckout();
     }
-
     @Test
     public void testSelectDeliveryAddress() {
         String name = "My second address";
@@ -70,6 +70,11 @@ public class CheckoutPageTest {
     public void testTermsAndConditionErrorMessage(){
         checkoutPage.getToShippingPage().getToPaymentPage();
         Assert.assertEquals(checkoutPage.errorMessage(),"You must agree to the terms of service before continuing.");
+    }
+
+    @After
+    public void quitDriver(){
+        driver.quitDriver();
     }
 
 }

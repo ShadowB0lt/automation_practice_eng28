@@ -162,9 +162,8 @@ public class CheckoutPageFirstHalf implements KeySender {
 
 
     public boolean isTermsAndConditionsDisplayed(){
-        driver.switchTo().frame("fancybox-frame1557329986438");
-        System.out.println(driver.findElement(By.xpath("//*[@id=\"cms\"]/div/h3[1]")).getText());
-        return driver.findElement(By.xpath("//*[@id=\"order\"]/div[2]/div")).isDisplayed();
+        System.out.println(driver.findElement(By.tagName("iframe")).getText());
+        return driver.findElement(By.tagName("iframe")).isDisplayed();
     }
 
  //SCENARIO: UPDATE BILLING ADDRESS
@@ -345,9 +344,9 @@ public class CheckoutPageFirstHalf implements KeySender {
         actionOnWebElement().moveToElement(driver.findElement(byFinder));
     }
 
-    public void addProduct() {
+    private void addProduct() {
 
-        WebElement element = driver.findElement(By.className("product-image-container"));
+        WebElement element = driver.findElement(By.className("left-block"));
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
         WebElement subElement = driver.findElement(By.linkText("Add to cart"));
@@ -414,8 +413,8 @@ public class CheckoutPageFirstHalf implements KeySender {
     }
 
     public CheckoutPageFirstHalf navigateToCheckout(){
-        driver.findElement(By.className("product-name")).click();
-        driver.findElement(By.linkText("Add to cart"));
+        driver.navigate().to(homePageURL);
+        addProduct();
         driver.findElement(By.linkText("Proceed to checkout")).click();
         driver.findElement(By.linkText("Proceed to checkout")).click();
         driver.findElement(By.id("email")).sendKeys("engineering.28.sstvw@gmail.com");
