@@ -91,5 +91,35 @@ public class RegstrationStepDefs {
         Assert.assertTrue(driver.getCurrentUrl().contains("my-account"));
     }
 
+
+    @And("I have added valid data into all fields except the phone number fields")
+    public void iHaveAddedValidDataIntoAllFieldsExceptThePhoneNumberFields()
+    {
+        regPage.completeForm();
+        regPage.clearField("phone_mobile");
+    }
+
+
+    @Then("I will receive an error saying a phone number must be present")
+    public void iWillReceiveAnErrorSayingAPhoneNumberMustBePresent()
+    {
+        Assert.assertTrue(regPage.getErrorList().contains("is req"));
+    }
+
+    private String addressAlias;
+
+    @When("I view the Address Alias field")
+    public void iViewTheAddressAliasField()
+    {
+        addressAlias = regPage.readKeys("alias");
+    }
+
+
+    @Then("I see the value 'My address'")
+    public void iSeeTheValueMyAddress()
+    {
+        Assert.assertEquals("My address",addressAlias);
+    }
+
     
 }
