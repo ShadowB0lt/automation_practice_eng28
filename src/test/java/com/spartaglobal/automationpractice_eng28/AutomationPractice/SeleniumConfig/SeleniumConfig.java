@@ -1,8 +1,11 @@
 package com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,10 +35,11 @@ public class SeleniumConfig
         return driver;
     }
 
+
+
     public void quitDriver()
     {
         this.driver.quit();
     }
-
 
 }
