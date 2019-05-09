@@ -17,7 +17,7 @@ public class CheckoutPageTest {
         driver = new SeleniumConfig("chrome");
         checkoutPage = new CheckoutPageFirstHalf(driver.getDriver());
         checkoutPage.goToCheckOutPage();
-        checkoutPage.goToHomePage().clickAddToCart().clickProceedToCheckout().clickSecondProceedToCheckout().inputUserName().inputPassWord().clickToLogin();
+        checkoutPage.goToHomePage().addProductToCart().clickProceedToCheckout().clickSecondProceedToCheckout().inputUserName().inputPassWord().clickToLogin();
     }
 
     @Test

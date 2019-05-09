@@ -23,7 +23,7 @@ public class CheckoutStepDefs {
         checkoutPage = new CheckoutPageFirstHalf(driver.getDriver());
         checkoutPage.goToCheckOutPage();
         checkoutPage.goToHomePage();
-        checkoutPage.clickAddToCart();
+        checkoutPage.addProductToCart();
         checkoutPage.clickProceedToCheckout();
         checkoutPage.clickSecondProceedToCheckout();
         checkoutPage.inputUserName();
@@ -102,13 +102,11 @@ public class CheckoutStepDefs {
         checkoutPage.sendKeysTo(checkoutPage.generateRandomAddress("1234567890", 9), "phone_mobile");
         checkoutPage.deleteKeys(By.id("alias"));
         checkoutPage.sendKeysTo(randomAddressNickName, "alias");
-        checkoutPage.deleteKeys(By.id("address1"));
-        checkoutPage.sendKeysTo(randomAddressNickName, "address1");
         checkoutPage.clickSaveAddressButton();
     }
     @Then("The updated billing address is visible and displayed correctly")
     public void the_updated_billing_address_is_visible_and_displayed_correctly() {
-        Assert.assertTrue(checkoutPage.checkBillingAddressDetail(randomAddressNickName));
+        Assert.assertTrue(checkoutPage.checkBillingAddress(randomAddressNickName));
     }
 
 
@@ -138,8 +136,9 @@ public class CheckoutStepDefs {
     }
     @Then("The updated delivery address is visible and displayed correctly")
     public void the_updated_delivery_address_is_visible_and_displayed_correctly() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+
+
+
     }
 
 
