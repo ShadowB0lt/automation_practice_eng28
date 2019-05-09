@@ -1,51 +1,89 @@
 package com.spartaglobal.automationpractice_eng28.StepDefs;
 
+import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.BasketPage;
+import com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig.SeleniumConfig;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 
 public class BasketStepDefs {
+
+    private static BasketPage basketPage = new BasketPage(new SeleniumConfig("chrome").getDriver());
 
     //Add a single product to the basket from the home page
     @Given("I am on the homepage")
     public void i_am_on_the_homepage() {
-        throw new cucumber.api.PendingException();
+
+        basketPage.goToHomepage();
+        Assert.assertEquals(basketPage.getCurrentPageURL(),"http://automationpractice.com/index.php");
     }
 
     @When("I click add to cart button")
     public void i_click_add_to_cart_button() {
-        throw new cucumber.api.PendingException();
+        basketPage.addToCartButton();
     }
 
     @Then("pop up menu appears saying product has been added to basket")
     public void pop_up_menu_appears_saying_product_has_been_added_to_basket() {
-        throw new cucumber.api.PendingException();
+        Assert.assertTrue(basketPage.checkPopUpMenuIsDisplayed());
     }
+
+    //Add multiple different products to the basket from the home page
+
+    @And("I click add to cart button for a product")
+    public void i_click_add_to_cart_button_for_a_product() {
+        basketPage.addSpecifiedProductToCart();
+    }
+
+    @When("I click continue shopping button")
+    public void i_click_continue_shopping_button() {
+        basketPage.continueShoppingButton();
+    }
+
+    @And("I click add to cart button for a different product")
+    public void i_click_add_to_cart_button_for_a_different_product() {
+        //basketPage.addToCartButton();
+    }
+
+    @Then("pop up menu appears saying product has been added to the basket")
+    public void pop_up_menu_appears_saying_product_has_been_added_to_the_basket() {
+        Assert.assertTrue(basketPage.checkPopUpMenuIsDisplayed());
+    }
+
     //Go to Basket page after a product confirmed to have been added
     @Given("I have the pop up menu opened")
     public void i_have_the_pop_up_menu_opened() {
-        throw new cucumber.api.PendingException();
+        Assert.assertTrue(basketPage.checkPopUpMenuIsDisplayed());
     }
 
     @When("I click proceed to checkout button")
-    public void i_click_proceed_to_checkout_button() {
-        throw new cucumber.api.PendingException();
+    public void i_click_proceed_to_checkout_button()
+    {
+        basketPage.proceedToCheckoutButton();
     }
 
     @Then("I am on the Basket Page")
     public void i_am_on_the_Basket_Page() {
-        throw new cucumber.api.PendingException();
+
+        Assert.assertEquals(basketPage.getCurrentPageURL(),"http://automationpractice.com/index.php?controller=order");
     }
     //Increase Quantity of a product in the Basket
     @Given("I can see the product in the basket")
     public void i_can_see_the_product_in_the_basket() {
-        throw new cucumber.api.PendingException();
+
+        String firstProductKey = "Faded Short Sleeve T-shirts";
+        Assert.assertTrue(basketPage.checkProductExistsInBasket());
+//        Assert.assertEquals(basketPage.productBasketTableData().get(firstProductKey),basketPage.productHomePageTableData().get(firstProductKey));
+
     }
 
     @When("I click on the plus button")
     public void i_click_on_the_plus_button() {
-        throw new cucumber.api.PendingException();
+
     }
 
     @Then("I see the quantity has been increased by {int}")
@@ -90,32 +128,6 @@ public class BasketStepDefs {
         throw new cucumber.api.PendingException();
     }
 
-    //Add multiple different products to the basket from the home page
-    @Given("I am on the home page")
-    public void i_am_on_the_home_page() {
-        throw new cucumber.api.PendingException();
-    }
-
-    @And("I click add to cart button for a product")
-    public void i_click_add_to_cart_button_for_a_product() {
-        throw new cucumber.api.PendingException();
-    }
-
-    @When("I click continue shopping button")
-    public void i_click_continue_shopping_button() {
-        throw new cucumber.api.PendingException();
-    }
-
-    @And("I click add to cart button for a different product")
-    public void i_click_add_to_cart_button_for_a_different_product() {
-        throw new cucumber.api.PendingException();
-    }
-
-    @Then("pop up menu appears saying product has been added to the basket")
-    public void pop_up_menu_appears_saying_product_has_been_added_to_the_basket() {
-        throw new cucumber.api.PendingException();
-    }
-
     //Remove a single product from Basket
     @Given("I am on the basket page")
     public void i_am_on_the_basket_page() {
@@ -132,5 +144,8 @@ public class BasketStepDefs {
         throw new cucumber.api.PendingException();
     }
 
-
+    @After("@LoginTest")
+    public void quitDriver(){
+        basketPage.quitDriver();
+    }
 }

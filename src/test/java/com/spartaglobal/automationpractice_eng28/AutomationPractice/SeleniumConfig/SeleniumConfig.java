@@ -14,6 +14,7 @@ public class SeleniumConfig
     private SeleniumPropertiesReader seleniumProperties = new SeleniumPropertiesReader();
 
 
+
     public SeleniumConfig(String browserName) {
         if (browserName.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", seleniumProperties.getChromeDriverPath());
@@ -24,7 +25,6 @@ public class SeleniumConfig
         }
 
         this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
     }
 
     public WebDriver getDriver()

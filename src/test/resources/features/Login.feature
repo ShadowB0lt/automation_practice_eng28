@@ -1,3 +1,4 @@
+@LoginTest
 Feature: Login
 
   Scenario: As a registered user, I can login
@@ -16,6 +17,7 @@ Feature: Login
       | "hithere@@hithere.hi.there" | "Invalid email address." |
 
 
+  @test
   Scenario Outline: Inputting an invalid password generates an error
     Given I am on the login page
     When I input the correct email with an invalid password <password>
