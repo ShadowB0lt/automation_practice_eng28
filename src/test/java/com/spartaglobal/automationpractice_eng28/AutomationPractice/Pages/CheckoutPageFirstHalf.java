@@ -381,36 +381,7 @@ public class CheckoutPageFirstHalf implements KeySender {
 
 
 
-     public CheckoutPageFirstHalf addProductToCart(){
-        mover.moveToElement(By.className("product-image-container"));
-        driver.findElement(By.linkText("Add to cart")).click();
-        return this;
-     }
 
-    public CheckoutPageFirstHalf clickProceedToCheckout(){
-        driver.findElement(By.linkText("Proceed to checkout")).click();
-        return this;
-    }
-
-    public CheckoutPageFirstHalf clickSecondProceedToCheckout() {
-        driver.findElement(By.linkText("Proceed to checkout")).click();
-        return this;
-    }
-
-    public CheckoutPageFirstHalf inputUserName(){
-        driver.findElement(By.id("email")).sendKeys("engineering.28.sstvw@gmail.com");
-        return this;
-    }
-
-    public CheckoutPageFirstHalf inputPassWord(){
-        driver.findElement(By.id("passwd")).sendKeys("3NG_s8SSTVW");
-        return this;
-    }
-
-    public CheckoutPageFirstHalf clickToLogin(){
-        driver.findElement(By.id("SubmitLogin")).click();
-        return this;
-    }
 
     public CheckoutPageFirstHalf navigateToCheckout(){
         driver.navigate().to(homePageURL);
