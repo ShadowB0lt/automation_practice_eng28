@@ -11,12 +11,14 @@ import java.util.List;
 import java.util.Random;
 
 
+
 /**
  * KeyReader and KeySender provide access to the sendKeys and readKeys methods
  */
 public class RegistrationPage implements KeyReader, KeySender
 {
     private WebDriver driver;
+
 
     private static String baseUrl = "http://automationpractice.com/index.php?controller=authentication";
 
@@ -38,10 +40,12 @@ public class RegistrationPage implements KeyReader, KeySender
     private String testEmail;
 
 
+
     public RegistrationPage(WebDriver driver)
     {
         this.driver = driver;
     }
+
 
     @Override
     public WebDriver getDriver()
@@ -202,6 +206,5 @@ public class RegistrationPage implements KeyReader, KeySender
     {
         return driver.findElement(errorList).getText();
     }
-
 
 }

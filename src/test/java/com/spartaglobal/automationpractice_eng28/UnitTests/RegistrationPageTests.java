@@ -12,7 +12,6 @@ public class RegistrationPageTests
     private static WebDriver driver;
     private static RegistrationPage regPage;
 
-
     @BeforeClass
     public static void setUp()
     {
@@ -107,8 +106,6 @@ public class RegistrationPageTests
     {
         driver.quit();
     }
-
-
 
 
 }

@@ -18,16 +18,15 @@ public class LoginStepDefs {
     private static LoginPage loginPage;
     private static SeleniumConfig driver;
 
-    @Before
+
+    @Before("@LoginTest")
     public void setUp(){
         driver = new SeleniumConfig("chrome");
         loginPage = new LoginPage(driver.getDriver());
         loginPage.goToLoginPage();
     }
 
-
     //Scenario: As a registered user, I can login
-
 
     @Given("I enter a valid email and password")
     public void I_enter_a_valid_email_and_password(){
@@ -45,10 +44,6 @@ public class LoginStepDefs {
         String URL = "http://automationpractice.com/index.php?controller=my-account";
         Assert.assertEquals(loginPage.getCurrentURL(), URL);
     }
-
-
-    // Scenario Outline: Inputting an invalid email generates an error
-
 
     @Given("I am on the login page")
     public void I_am_on_the_login_page(){
@@ -117,7 +112,8 @@ public class LoginStepDefs {
         Assert.assertEquals(error, "Password is required.");
     }
 
-    @After
+
+    @After("@LoginTest")
     public void quitDriver(){
         driver.quitDriver();
     }
