@@ -1,9 +1,10 @@
+@Registration
 Feature: Registration
 
   Scenario: I can select one title radio button and the value wil be retrieved
     Given I am on the registration page
-    When I click the 'mr' radio button
-    Then The 'mr' radio button will be highlighted
+    When I click the mr radio button
+    Then The mr radio button will be highlighted
     And The value of the button can be retrieved
 
   Scenario Outline: The name fields recognise invalid values
@@ -16,26 +17,27 @@ Feature: Registration
       | customer_firstname |
       | customer_lastname  |
 
+  #Step defs are complete, but IDE doesn't realise.
   Scenario Outline: The text entry fields display the keys sent
     Given I am on the registration page
-    When I type into the menu item with id <id>
-    Then the field <id> will display the typed string
+    When I type <input> into the menu item with id <id>
+    Then the field <id> will display the typed string <input>
 
     Examples:
-      | id                 |
-      | firstname          |
-      | lastname           |
-      | customer_firstname |
-      | customer_lastname  |
-      | company            |
-      | address1           |
-      | address2           |
-      | city               |
-      | postcode           |
-      | other              |
-      | phone_mobile       |
-      | phone              |
-      | alias              |
+      | id                 | input            |
+      | firstname          | "EngTwoEight"    |
+      | lastname           | "Class"          |
+      | customer_firstname | "Other"          |
+      | customer_lastname  | "Name"           |
+      | company            | "Sparta"         |
+      | address1           | "35 House Road"  |
+      | address2           | "Moorgate"       |
+      | city               | "New York"       |
+      | postcode           | "98745"          |
+      | other              | "check this out" |
+      | phone_mobile       | "01228760984"    |
+      | phone              | "08988812345"    |
+      | alias              | "anAlias"        |
 
   Scenario: Registration is permitted once the form is correctly filled in
     Given I am on the registration page

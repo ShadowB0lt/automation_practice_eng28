@@ -60,6 +60,11 @@ public class RegistrationPage implements KeyReader, KeySender
         return driver.findElement(custFirstNm).getCssValue("color");
     }
 
+    public String getFieldCssColour(String fieldId)
+    {
+        return driver.findElement(By.id(fieldId)).getCssValue("color");
+    }
+
     private String getTestEmail()
     {
         Random random = new Random();
