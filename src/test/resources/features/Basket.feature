@@ -1,11 +1,13 @@
+@BasketTest
 Feature: Basket
+
 
   Scenario: Add a single product to the basket from the home page
     Given I am on the homepage
     When I click add to cart button
     Then pop up menu appears saying product has been added to basket
 
-    Scenario: Go to Basket page after a product confirmed to have been added
+  Scenario: Go to Basket page after a product confirmed to have been added
       Given I have the pop up menu opened
       When I click proceed to checkout button
       Then I am on the Basket Page
@@ -31,7 +33,7 @@ Feature: Basket
     Then I am on checkout
 
   Scenario: Add multiple different products to the basket from the home page
-    Given I am on the home page
+    Given I am on the homepage
     When I click add to cart button for a product
     And pop up menu appears saying product has been added to the basket
     When I click continue shopping button
