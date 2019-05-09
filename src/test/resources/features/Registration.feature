@@ -78,29 +78,30 @@ Feature: Registration
   Scenario: I can input a date of birth and read the value on the page
     Given I am on the registration page
     When I select a date of birth
-    Then That date is visible on the screen.
+    Then That date is visible on the screen
 
   Scenario: The values of the address name fields are auto populated by the values of the personal details name fields.
     Given I am on the registration page
     When I add a first name and last name in the personal details section
-    Then I can read the first name and last name from the address details section.
+    Then I can read the first name from the address details section
+    And I can read the last name from the address details section
 
   Scenario: The mobile number field does not accept letters
     Given I am on the registration page
-    When I add the string 0a478909823 into the mobile phone field
+    When I add the string 0z478909823 into the mobile phone field
     And I click the submit button
     Then I receive an error stating the mobile phone number is invalid
 
   Scenario: The home number field does not accept letters
     Given I am on the registration page
-    When I add the string 0a478909823 into the home phone field
+    When I add the string 0z478909823 into the home phone field
     And I click the submit button
     Then I receive an error stating the phone number is invalid
 
   Scenario: Check boxes can be simultaneously selected
     Given I am on the registration page
-    And The 'sign up for our newsletter' checkbox is ticked
-    When I click on the 'receive special offers' tickbox
+    And The sign up for our newsletter checkbox is ticked
+    When I click on the receive special offers tickbox
     Then I can see that the newsletter checkbox is ticked
     And I can see that the special offers checkbox is ticked
 

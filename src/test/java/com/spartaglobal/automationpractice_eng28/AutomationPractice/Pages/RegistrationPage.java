@@ -26,6 +26,9 @@ public class RegistrationPage implements KeyReader, KeySender
     private static By emailSubmit = By.id("SubmitCreate");
     private static By errorList = By.className("alert-danger");
 
+    private static By newsletter = By.id("newsletter");
+    private static By optIn = By.id("optin");
+
     private static By regSubmit = By.id("submitAccount");
     private static By custFirstNm = By.id("customer_firstname");
     private static By custFirstNmErr = By.cssSelector(".form-group.form-error input");
@@ -160,6 +163,29 @@ public class RegistrationPage implements KeyReader, KeySender
         yearSelector.selectByValue(Integer.toString(year));
         return this;
     }
+
+    public RegistrationPage clickNews()
+    {
+        driver.findElement(newsletter).click();
+        return this;
+    }
+
+    public boolean getNewsVal()
+    {
+        return driver.findElement(newsletter).isSelected();
+    }
+
+    public RegistrationPage clickOptIn()
+    {
+        driver.findElement(optIn).click();
+        return this;
+    }
+
+    public boolean getOptInVal()
+    {
+        return driver.findElement(optIn).isSelected();
+    }
+
 
     public int getSelectedYear()
     {

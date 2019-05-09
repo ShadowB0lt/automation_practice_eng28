@@ -149,5 +149,110 @@ public class RegstrationStepDefs {
         Assert.assertTrue(regPage.getErrorList().contains(error));
     }
 
-    
+    private int day = 4;
+    private int month = 4;
+    private String monthStr = "April";
+    private int year = 2000;
+
+    @When("I select a date of birth")
+    public void iSelectADateOfBirth()
+    {
+        regPage.chooseDay(day).chooseMonth(month).chooseYear(year);
+    }
+
+
+    @Then("That date is visible on the screen")
+    public void thatDateIsVisibleOnTheScreen()
+    {
+        boolean dayMatch = regPage.getSelectedDay() == day;
+        boolean monthMatch = regPage.getSelectedMonth() == monthStr;
+        boolean yearMatch = regPage.getSelectedYear() == year;
+
+        Assert.assertTrue(dayMatch && monthMatch && yearMatch);
+    }
+
+    private String firstName = "Eng";
+    private String lastName = "TwoEight";
+
+    @When("I add a first name and last name in the personal details section")
+    public void iAddAFirstNameAndLastNameInThePersonalDetailsSection()
+    {
+        regPage.sendKeysTo(firstName + "\t", "customer_firstname");
+        regPage.sendKeysTo(lastName + "\t", "customer_lastname" );
+    }
+
+
+    @Then("I can read the first name from the address details section")
+    public void iCanReadTheFirstNameFromTheAddressDetailsSection()
+    {
+        Assert.assertEquals(regPage.readKeys("customer_firstname"), firstName);
+    }
+
+    @And("I can read the last name from the address details section")
+    public void iCanReadTheLastNameFromTheAddressDetailsSection()
+    {
+        Assert.assertEquals(regPage.readKeys("customer_lastname"), lastName);
+    }
+
+
+    @When("I add the string 0z478909823 into the mobile phone field")
+    public void iAddTheStringAIntoTheMobilePhoneField()
+    {
+        regPage.sendKeysTo("0z478909823", "phone_mobile");
+    }
+
+
+    @Then("I receive an error stating the mobile phone number is invalid")
+    public void iReceiveAnErrorStatingTheMobilePhoneNumberIsInvalid()
+    {
+        Assert.assertTrue(regPage.getErrorList().contains("is invalid"));
+    }
+
+
+    @When("I add the string 0z478909823 into the home phone field")
+    public void iAddTheStringAIntoTheHomePhoneField()
+    {
+        regPage.sendKeysTo("0z478909823", "phone");
+    }
+
+
+    @Then("I receive an error stating the phone number is invalid")
+    public void iReceiveAnErrorStatingThePhoneNumberIsInvalid()
+    {
+        Assert.assertTrue(regPage.getErrorList().contains("is invalid"));
+    }
+
+
+    @And("The sign up for our newsletter checkbox is ticked")
+    public void theSignUpForOurNewsletterCheckboxIsTicked()
+    {
+        regPage.clickNews();
+    }
+
+
+    @When("I click on the receive special offers tickbox")
+    public void iClickOnTheReceiveSpecialOffersTickbox()
+    {
+        regPage.clickOptIn();
+    }
+
+
+    @Then("I can see that the newsletter checkbox is ticked")
+    public void iCanSeeThatTheNewsletterCheckboxIsTicked()
+    {
+        Assert.assertTrue(regPage.getNewsVal());
+    }
+
+
+    @And("I can see that the special offers checkbox is ticked")
+    public void iCanSeeThatTheSpecialOffersCheckboxIsTicked()
+    {
+        Assert.assertTrue(regPage.getOptInVal());
+    }
+
+    @After("@registration")
+    public void teardown()
+    {
+        driver.quit();
+    }
 }
