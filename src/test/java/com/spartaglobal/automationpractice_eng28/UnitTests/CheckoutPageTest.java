@@ -22,9 +22,9 @@ public class CheckoutPageTest {
 
     @Test
     public void testSelectDeliveryAddress() {
-        String name = "Office Address";
-        checkoutPage.toggleBillingAndDeliveryButtonDropDownBox().selectDeliveryAddress("Office Address");
-        Boolean automation = checkoutPage.checkAddressValueIsSelected("Office Address");
+        String name = "My second address";
+        checkoutPage.toggleBillingAndDeliveryButtonDropDownBox().selectDeliveryAddress(name);
+        Boolean automation = checkoutPage.checkAddressValueIsSelected(name);
         Assert.assertEquals(true, automation);
     }
 
@@ -44,9 +44,23 @@ public class CheckoutPageTest {
     }
 
     @Test
-    public void testToggleDropBoxButton(){
+    public void testToggleDropBoxButton() {
         checkoutPage.toggleBillingAndDeliveryButtonDropDownBox();
         Assert.assertFalse(checkoutPage.checkToggleButton());
     }
+
+    @Test
+    public void testPayByCheckButton() {
+        checkoutPage.getToShippingPage().clickAcceptTermsAndConditions().getToPaymentPage().clickOnPayByCheckButton();
+        Assert.assertEquals("CHECK PAYMENT", checkoutPage.checkPayByCheckButton());
+    }
+
+    @Test
+    public void testCheckOrderConfirmation() {
+        checkoutPage.getToShippingPage().clickAcceptTermsAndConditions().getToPaymentPage().clickOnPayByCheckButton().clickConfirmOrderButton();
+        Assert.assertEquals(checkoutPage.getConfirmationOfOrder(), "Your order on My Store is complete.");
+    }
 }
+
+
 

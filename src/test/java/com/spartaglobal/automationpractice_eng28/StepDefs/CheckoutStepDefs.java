@@ -15,6 +15,7 @@ public class CheckoutStepDefs {
     private static CheckoutPageFirstHalf checkoutPage;
     private static SeleniumConfig driver;
     private static String randomAddressNickName;
+    private static String selectAddress;
 
     @Before
     public void setUp(){
@@ -86,6 +87,21 @@ public class CheckoutStepDefs {
     @And("I have completed the changes to the your address form")
     public void i_have_completed_the_changes_to_the_your_address_form() {
         randomAddressNickName = checkoutPage.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10);
+        checkoutPage.deleteKeys(By.id("firstname"));
+        checkoutPage.sendKeysTo(checkoutPage.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10), "firstname");
+        checkoutPage.deleteKeys(By.id("lastname"));
+        checkoutPage.sendKeysTo(checkoutPage.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10),"lastname");
+        checkoutPage.deleteKeys(By.id("address1"));
+        checkoutPage.sendKeysTo(checkoutPage.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10), "address1");
+        checkoutPage.deleteKeys(By.id("city"));
+        checkoutPage.sendKeysTo(checkoutPage.generateRandomAddress("abcdefghijklmnopqrstuvwxyz", 10), "city");
+        checkoutPage.selectStateFromDropDown("California");
+        checkoutPage.deleteKeys(By.id("postcode"));
+        checkoutPage.sendKeysTo("90212", "postcode");
+        checkoutPage.deleteKeys(By.id("phone_mobile"));
+        checkoutPage.sendKeysTo(checkoutPage.generateRandomAddress("1234567890", 9), "phone_mobile");
+        checkoutPage.deleteKeys(By.id("alias"));
+        checkoutPage.sendKeysTo(randomAddressNickName, "alias");
         checkoutPage.deleteKeys(By.id("address1"));
         checkoutPage.sendKeysTo(randomAddressNickName, "address1");
         checkoutPage.clickSaveAddressButton();
@@ -110,8 +126,7 @@ public class CheckoutStepDefs {
 
     @Then("I can view the terms and conditions")
     public void i_can_view_the_terms_and_conditions() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        Assert.assertTrue(checkoutPage.isTermsAndConditionsDisplayed());
     }
 
 
@@ -132,26 +147,21 @@ public class CheckoutStepDefs {
 
     @Given("I have previously created the address page that I want to use for delivery")
     public void i_have_previously_created_the_address_page_that_I_want_to_use_for_delivery() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
     }
 
     @When("I click on the delivery dropdown box")
     public void i_click_on_the_delivery_dropdown_box() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        selectAddress = "My second address";
+        checkoutPage.selectDeliveryAddress(selectAddress);
     }
 
     @And("I click on the address I want")
     public void i_click_on_the_address_I_want() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
     }
 
     @Then("the address that I want to be delivered to is displayed")
     public void the_address_that_I_want_to_be_delivered_to_is_displayed() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        Assert.assertTrue(checkoutPage.checkAddressValueIsSelected(selectAddress));
     }
 
 
@@ -159,8 +169,8 @@ public class CheckoutStepDefs {
 
     @Given("I have clicked through the relevant pages to get to the checkout payment page")
     public void i_have_clicked_through_the_relevant_pages_to_get_to_the_checkout_payment_page() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+
+        checkoutPage.getToShippingPage().clickAcceptTermsAndConditions().getToPaymentPage();
     }
 
     @When("I click the continue shopping button")
@@ -180,20 +190,17 @@ public class CheckoutStepDefs {
 
     @When("I click on the pay by check button")
     public void i_click_on_the_pay_by_check_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        checkoutPage.clickOnPayByCheckButton();
     }
 
     @And("I click on the confirm by order button")
     public void i_click_on_the_confirm_by_order_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        checkoutPage.clickConfirmOrderButton();
     }
 
     @Then("The confirmation order message appears for check")
     public void the_confirmation_order_message_appears_for_check() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        Assert.assertEquals("Your order on My Store is complete.", checkoutPage.getConfirmationOfOrder());
     }
 
 
@@ -201,14 +208,12 @@ public class CheckoutStepDefs {
 
     @When("I click on the pay by bank wire button")
     public void i_click_on_the_pay_by_bank_wire_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        checkoutPage.clickPayByBankWire();
     }
 
     @Then("The confirmation order message appears")
     public void the_confirmation_order_message_appears() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        Assert.assertEquals("Your order on My Store is complete.", checkoutPage.confirmationOrderMessage());
     }
 
 

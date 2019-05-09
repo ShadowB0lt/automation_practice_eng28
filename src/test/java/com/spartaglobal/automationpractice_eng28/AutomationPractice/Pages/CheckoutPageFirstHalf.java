@@ -2,7 +2,6 @@ package com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages;
 
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.KeyHandlers.KeySender;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -25,6 +24,14 @@ public class CheckoutPageFirstHalf implements KeySender {
     private By deliveryAndBillingAddressInformation = By.cssSelector("li[class^='address']");
     private By deliveryAddressDropDown = By.id("id_address_delivery");
     private By stateDropDownBox = By.id("id_state");
+    private By payByCheckButton = By.className("cheque");
+    private By checkPayment = By.className("page-subheading");
+    private By termsAndConditionsTickBox = By.id("cgv");
+    private By paymentPageButton = By.name("processCarrier");
+    private By confirmOrderButton = By.xpath("//*[@id=\"cart_navigation\"]/button/span");
+    private By checkOrderConfirmation = By.className("alert");
+    private By bankWirePaymentButton = By.className("bankwire");
+    private By bankWireOrderConfirmation = By.className("cheque-indent");
 
     private List<String> deliveryAddressesList;
     private List<String> billingAddressesList;
@@ -150,9 +157,9 @@ public class CheckoutPageFirstHalf implements KeySender {
 
 
     public boolean isTermsAndConditionsDisplayed(){
-        driver.findElement(By.xpath("//*[@id=\"fancybox-frame1557223666607\"]"));
-        driver.switchTo().frame(1);
-        return driver.findElement(By.id("fancybox-frame1557221967585")).isDisplayed();
+        driver.switchTo().frame("fancybox-frame1557329986438");
+        System.out.println(driver.findElement(By.xpath("//*[@id=\"cms\"]/div/h3[1]")).getText());
+        return driver.findElement(By.xpath("//*[@id=\"order\"]/div[2]/div")).isDisplayed();
     }
 
  //SCENARIO: UPDATE BILLING ADDRESS
@@ -262,6 +269,49 @@ public class CheckoutPageFirstHalf implements KeySender {
         selectedCorrectly = deliveryAddressOptions.getFirstSelectedOption().getText().trim().equals(deliveryAddress);
 
         return selectedCorrectly;
+    }
+
+    //Scenario: I would like to pay by check
+
+    public CheckoutPageFirstHalf clickAcceptTermsAndConditions(){
+        driver.findElement(termsAndConditionsTickBox).click();
+        return this;
+    }
+
+    public CheckoutPageFirstHalf getToPaymentPage(){
+        driver.findElement(paymentPageButton).click();
+        return this;
+    }
+
+    public CheckoutPageFirstHalf clickOnPayByCheckButton(){
+        driver.findElement(payByCheckButton).click();
+        return this;
+    }
+
+    public String checkPayByCheckButton(){
+        return driver.findElement(checkPayment).getText().trim();
+    }
+
+    public CheckoutPageFirstHalf clickConfirmOrderButton(){
+        driver.findElement(confirmOrderButton).click();
+        return this;
+    }
+
+    public String getConfirmationOfOrder(){
+        return driver.findElement(checkOrderConfirmation).getText();
+    }
+
+    //Scenario: I would like to pay by bankwire
+
+    public CheckoutPageFirstHalf clickPayByBankWire(){
+        driver.findElement(bankWirePaymentButton).click();
+        return this;
+    }
+
+    public String confirmationOrderMessage(){
+        return driver.findElement(bankWireOrderConfirmation).getText();
+
+
     }
 
 
