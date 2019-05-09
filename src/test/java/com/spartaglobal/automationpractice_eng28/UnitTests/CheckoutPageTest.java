@@ -3,6 +3,7 @@ package com.spartaglobal.automationpractice_eng28.UnitTests;
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.CheckoutPageFirstHalf;
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig.SeleniumConfig;
 import com.sun.source.tree.AssertTree;
+import cucumber.api.java.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +60,11 @@ public class CheckoutPageTest {
     public void testCheckOrderConfirmation() {
         checkoutPage.getToShippingPage().clickAcceptTermsAndConditions().getToPaymentPage().clickOnPayByCheckButton().clickConfirmOrderButton();
         Assert.assertEquals(checkoutPage.getConfirmationOfOrder(), "Your order on My Store is complete.");
+    }
+
+    @After
+    public void quitDriver(){
+        driver.quitDriver();
     }
 }
 

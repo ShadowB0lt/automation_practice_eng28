@@ -2,6 +2,7 @@ package com.spartaglobal.automationpractice_eng28.StepDefs;
 
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.CheckoutPageFirstHalf;
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig.SeleniumConfig;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -257,13 +258,18 @@ public class CheckoutStepDefs {
         throw new cucumber.api.PendingException();
     }
 
-
-
-
-
-
-
-
-
-
+    @After
+    public void quitDriver(){
+            driver.quitDriver();
+        }
 }
+
+
+
+
+
+
+
+
+
+
