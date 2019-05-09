@@ -32,6 +32,8 @@ public class RegistrationPage implements KeyReader, KeySender
     private static By custFirstNmOk = By.cssSelector(".form-group.form-ok input");
     private static String emailCreateId = "email_create";
 
+    private String testEmail;
+
 
     public RegistrationPage(WebDriver driver)
     {
@@ -51,7 +53,7 @@ public class RegistrationPage implements KeyReader, KeySender
     public void navigateToPage()
     {
         driver.navigate().to(baseUrl);
-        sendKeysTo(getTestEmail(), emailCreateId);
+        sendKeysTo(makeTestEmail(), emailCreateId);
         driver.findElement(emailSubmit).click();
     }
 
@@ -65,12 +67,18 @@ public class RegistrationPage implements KeyReader, KeySender
         return driver.findElement(By.id(fieldId)).getCssValue("color");
     }
 
-    private String getTestEmail()
+    private String makeTestEmail()
     {
         Random random = new Random();
         String emailBase = "test";
         String emailFinish = "@test.com";
-        return emailBase + random.nextInt(14000000) + emailFinish;
+        testEmail =  emailBase + random.nextInt(14000000) + emailFinish;
+        return testEmail;
+    }
+
+    public String getTestEmail()
+    {
+        return testEmail;
     }
 
     public void clickRegister()

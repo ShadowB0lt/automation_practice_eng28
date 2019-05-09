@@ -121,5 +121,33 @@ public class RegstrationStepDefs {
         Assert.assertEquals("My address",addressAlias);
     }
 
+    private String displayedEmail;
+
+    @When("I read the email address field")
+    public void iReadTheEmailAddressField()
+    {
+        displayedEmail = regPage.readKeys("email");
+    }
+
+    @Then("it is equal to the email address I typed on the log in screen")
+    public void itIsEqualToTheEmailAddressITypedOnTheLogInScreen()
+    {
+        Assert.assertEquals(displayedEmail,regPage.getTestEmail());
+    }
+
+
+    @And("I have deleted the entry in the field with id {word}")
+    public void iHaveDeletedTheEntryInTheFieldWithIdId(String field)
+    {
+        regPage.clearField(field);
+    }
+
+
+    @Then("I will receive an error containing {string}")
+    public void iWillReceiveAnErrorContainingError(String error)
+    {
+        Assert.assertTrue(regPage.getErrorList().contains(error));
+    }
+
     
 }
