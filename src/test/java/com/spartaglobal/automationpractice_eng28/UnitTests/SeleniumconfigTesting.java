@@ -28,7 +28,6 @@ public class SeleniumconfigTesting {
     public void test(){
         driver.navigate().to(homePage.homePageurl);
         SeleniumHelpers.hoverOverElement(driver, driver.findElement(By.className("first-in-line")));
-        driver.q
     }
 
 }
