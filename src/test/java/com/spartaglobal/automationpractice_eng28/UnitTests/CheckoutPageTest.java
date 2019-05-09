@@ -21,7 +21,7 @@ public class CheckoutPageTest {
     }
     @Test
     public void testSelectDeliveryAddress() {
-        String name = "My second address";
+        String name = "Office Address";
         checkoutPage.toggleBillingAndDeliveryButtonDropDownBox().selectDeliveryAddress(name);
         Boolean automation = checkoutPage.checkAddressValueIsSelected(name);
         Assert.assertEquals(true, automation);

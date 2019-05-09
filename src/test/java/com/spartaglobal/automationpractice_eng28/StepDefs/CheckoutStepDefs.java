@@ -143,7 +143,7 @@ public class CheckoutStepDefs {
 
     @When("I click on the delivery dropdown box")
     public void i_click_on_the_delivery_dropdown_box() {
-        selectAddress = "My second address";
+        selectAddress = randomAddressNickName;
         checkoutPage.selectDeliveryAddress(selectAddress);
     }
 
