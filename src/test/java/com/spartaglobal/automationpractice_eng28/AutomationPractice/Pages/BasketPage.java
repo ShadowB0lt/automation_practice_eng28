@@ -3,10 +3,10 @@ package com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class BasketPage {
@@ -15,13 +15,22 @@ public class BasketPage {
 
     private String homepageURL = "http://automationpractice.com/index.php";
     private By addToCartLink = By.linkText("Add to cart");
+    private By moreLink = By.linkText("More");
+    private By continueShoppingLink = By.tagName("span");
     private By proceedToCheckoutLink = By.linkText("Proceed to checkout");
     private By popUpMenuID = By.id("layer_cart");
     private By getPopUpMenuClass = By.className("clearfix");
     private By IncreaseQuantityButtonTitle = By.tagName("title");
     private By productHomePageList = By.id("homefeatured");
-    private By productListHomePage = By.tagName("li");
+    private By productHomePageListTagName = By.tagName("li");
+    private By productBasketProductID = By.id("cart_summary");
+    private By basketTableRows = By.tagName("tr");
 
+    //Map for holding product table from home page
+    private Map<String,String> productDetails;
+    //List for holding list of products
+    private List<WebElement> productList;
+    private Products products;
 
     public BasketPage (WebDriver driver)
     {
@@ -31,6 +40,7 @@ public class BasketPage {
     public void goToHomepage()
     {
         driver.navigate().to(homepageURL);
+        productHomePageTableData();
     }
 
     public String getCurrentPageURL()
@@ -38,10 +48,34 @@ public class BasketPage {
         return driver.getCurrentUrl();
     }
 
-    public void addToCartButton()
+    public void addSpecifiedProductToCart()
     {
 
+    }
+    private WebElement productTable(By tableName)
+    {
+        WebElement table = driver.findElement(tableName);
+        return table;
+    }
+
+    private List<WebElement> productListHomePage()
+    {
+        return productTable(productHomePageList).findElements(productHomePageListTagName);
+    }
+
+    public void addToCartButton()
+    {
         driver.findElement(addToCartLink).click();
+    }
+
+    public void moreButton()
+    {
+        driver.findElement(moreLink).click();
+    }
+
+    public void continueShoppingButton()
+    {
+        driver.findElement(By.className("button-container")).findElement(continueShoppingLink).click();
     }
 
     public boolean checkPopUpMenuIsDisplayed()
@@ -49,49 +83,51 @@ public class BasketPage {
        return driver.findElement(getPopUpMenuClass).isDisplayed();
     }
 
-    public void checkPopUpMenuIsVisible()
-    {
-
-    }
     public void proceedToCheckoutButton()
     {
         driver.findElement(proceedToCheckoutLink).click();
     }
 
-    public List<String> productBasketTableData()
+    public boolean checkProductExistsInBasket()
     {
-        WebElement table = driver.findElement(By.id("cart_summary"));
+        //System.out.println(productBasketTableData());
+      return productDetails.containsKey(driver.findElement(productBasketProductID).findElement(By.className("product-name")).getText());
 
-        List<WebElement> productTRList = table.findElements(By.tagName("tr"));
-        List<String> productIDList = new ArrayList<>();
-        for(WebElement element : productTRList)
-        {
-            productIDList.add(element.getAttribute("id"));
-            //System.out.println(element.getAttribute("id"));
-        }
-        return productIDList;
     }
-
+    public void createProducts()
+    {
+        List<WebElement> productList = productTable(productHomePageList).findElements(productHomePageListTagName);
+        for(WebElement element : productList) {
+            products = new Products(element);
+        }
+    }
 
     public Map<String,String> productHomePageTableData()
     {
-        WebElement table = driver.findElement(productHomePageList);
-
-        List<WebElement> productList =  table.findElements(productListHomePage);
-        Map<String,String> productNames = new HashMap<>();
-        for (WebElement element : productList)
+        List<WebElement> listOfProducts = productTable(productHomePageList).findElements(productHomePageListTagName);
+        productDetails = new HashMap<>();
+        for (WebElement element : listOfProducts)
         {
-            productNames.put(
+            productDetails.put(
                     element.findElement(By.className("product-name")).getText(),
-                    element.findElement(By.className("right-block")).findElement(By.className("content_price")).getText());
-            }
-        System.out.println(productNames.get("Faded Short Sleeve T-shirts"));
-        return productNames;
+                    element.findElement(By.className("right-block")).findElement(By.className("content_price")).getText()
+            );
+        }
+        return productDetails;
     }
 
-    public boolean checkProductIDMatches(String chosenProductID)
+    public Map<String,String> productBasketTableData()
     {
-       return productBasketTableData().contains(chosenProductID);
+        List<WebElement> productTRList = productTable(productBasketProductID).findElement(By.tagName("tbody")).findElements(basketTableRows);
+        Map<String,String>  productDetails = new HashMap<>();
+        for(WebElement element : productTRList)
+        {
+            productDetails.put(
+                    element.findElement(By.className("cart_description")).findElement(By.className("product-name")).getText(),
+                    element.findElement(By.className("cart-unit")).findElement(By.className("price")).getText());
+        }
+        System.out.println(productDetails.values());
+        return productDetails;
     }
 
     public void increaseQuantityButton()
@@ -99,5 +135,53 @@ public class BasketPage {
 
     }
 
+    public void quitDriver()
+    {
+        driver.quit();
+    }
+
+    private class Products {
+
+        private String productClassID;
+        private String productName;
+        private String productPrice;
+        private String productAddToCartURL;
+        private WebElement productList;
+
+
+        public Products(WebElement productList)
+        {
+           this.productList = productList;
+           productName = productList.findElement(By.className("product-name")).getText();
+           productPrice = productList.findElement(By.className("right-block")).findElement(By.className("content_price")).getText();
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public String getProductPrice()
+        {
+            return productPrice;
+        }
+
+        public WebElement getProductList()
+        {
+            return productList;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
+        public void setProductPrice(String productPrice) {
+            this.productPrice = productPrice;
+        }
+
+//        public void setProductList(WebElement productList) {
+//            this.productList = productList;
+//        }
+    }
 
 }
+
