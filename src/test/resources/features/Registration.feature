@@ -37,7 +37,6 @@ Feature: Registration
       | other              | "check this out" |
       | phone_mobile       | "01228760984"    |
       | phone              | "08988812345"    |
-      | alias              | "anAlias"        |
 
   Scenario: Registration is permitted once the form is correctly filled in
     Given I am on the registration page
@@ -56,10 +55,10 @@ Feature: Registration
     When I view the Address Alias field
     Then I see the value 'My address'
 
-  Scenario: The displayed email on the registration screen defaults to the email from the previous screen
-    Given I am on the registration page
-    When I read the email address field
-    Then it is equal to the email address I typed on the log in screen
+#  Scenario: The displayed email on the registration screen defaults to the email from the previous screen
+#    Given I am on the registration page
+#    When I read the email address field
+#    Then it is equal to the email address I typed on the log in screen
 
   Scenario Outline: The omission of a mandatory field leads to an error on form submission
     Given I am on the registration page
