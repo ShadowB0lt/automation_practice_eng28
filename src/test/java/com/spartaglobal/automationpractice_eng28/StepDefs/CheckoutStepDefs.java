@@ -165,17 +165,6 @@ public class CheckoutStepDefs {
         checkoutPage.getToShippingPage().clickAcceptTermsAndConditions().getToPaymentPage();
     }
 
-    @When("I click the continue shopping button")
-    public void i_click_the_continue_shopping_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @Then("I can see the shopping page")
-    public void i_can_see_the_shopping_page() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
 
 
     //Scenario: I would like to pay by check
