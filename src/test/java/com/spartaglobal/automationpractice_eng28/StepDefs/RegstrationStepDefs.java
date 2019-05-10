@@ -103,7 +103,7 @@ public class RegstrationStepDefs {
     @Then("I will receive an error saying a phone number must be present")
     public void iWillReceiveAnErrorSayingAPhoneNumberMustBePresent()
     {
-        Assert.assertTrue(regPage.getErrorList().contains("is req"));
+        Assert.assertTrue(regPage.getErrorList().contains("must reg"));
     }
 
     private String addressAlias;
@@ -151,7 +151,7 @@ public class RegstrationStepDefs {
 
     private int day = 4;
     private int month = 4;
-    private String monthStr = "April";
+    private String monthStr = "april";
     private int year = 2000;
 
     @When("I select a date of birth")
@@ -165,7 +165,7 @@ public class RegstrationStepDefs {
     public void thatDateIsVisibleOnTheScreen()
     {
         boolean dayMatch = regPage.getSelectedDay() == day;
-        boolean monthMatch = regPage.getSelectedMonth() == monthStr;
+        boolean monthMatch = regPage.getSelectedMonth().equalsIgnoreCase(monthStr);
         boolean yearMatch = regPage.getSelectedYear() == year;
 
         Assert.assertTrue(dayMatch && monthMatch && yearMatch);
