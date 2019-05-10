@@ -27,7 +27,7 @@ Feature: Basket
     Given I have a populated basket
     When I click proceed to checkout button
     Then I am on checkout
-  
+
 #  Scenario: Add multiple different products to the basket from the home page
 #    Given I am on the homepage
 #    When I click add to cart button for a product

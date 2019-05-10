@@ -17,7 +17,6 @@ public class BasketStepDefs {
 
     private String previousQuantityValue;
 
-
     //Add a single product to the basket from the home page
     @Given("I am on the homepage")
     public void i_am_on_the_homepage() {
@@ -131,7 +130,7 @@ public class BasketStepDefs {
 
     @Then("I am on checkout")
     public void i_am_on_checkout() {
-
+        Assert.assertTrue(basketPage.checkIfCheckedOutOfBasketPage());
     }
 
     //Remove a single product from Basket
