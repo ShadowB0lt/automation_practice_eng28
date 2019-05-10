@@ -22,12 +22,12 @@ Feature: Checkout
     Then The updated billing address is visible and displayed correctly
 
 
-  Scenario: I would like to view the terms and conditions
-    Given I am currently logged into the website
-    And I have added the items I wanted to the basket
-    And I have clicked through the relevant pages to get to the checkout shipping page
-    When I click on the read terms of service button
-    Then I can view the terms and conditions
+#  Scenario: I would like to view the terms and conditions
+#    Given I am currently logged into the website
+#    And I have added the items I wanted to the basket
+#    And I have clicked through the relevant pages to get to the checkout shipping page
+#    When I click on the read terms of service button
+#    Then I can view the terms and conditions
 
   Scenario: I would like to update my delivery address
     Given I am currently logged into the website
