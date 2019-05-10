@@ -1,4 +1,4 @@
-@Registration
+@registration
 Feature: Registration
 
   Scenario: I can select one title radio button and the value wil be retrieved
