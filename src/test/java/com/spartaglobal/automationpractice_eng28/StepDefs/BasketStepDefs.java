@@ -4,6 +4,7 @@ import com.spartaglobal.automationpractice_eng28.AutomationPractice.Pages.Basket
 import com.spartaglobal.automationpractice_eng28.AutomationPractice.SeleniumConfig.SeleniumConfig;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import cucumber.api.java.BeforeStep;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -14,10 +15,11 @@ public class BasketStepDefs {
 
     private static BasketPage basketPage = new BasketPage(new SeleniumConfig("chrome").getDriver());
 
+    private String previousQuantityValue;
+
     //Add a single product to the basket from the home page
     @Given("I am on the homepage")
     public void i_am_on_the_homepage() {
-
         basketPage.goToHomepage();
         Assert.assertEquals(basketPage.getCurrentPageURL(),"http://automationpractice.com/index.php");
     }
@@ -34,9 +36,10 @@ public class BasketStepDefs {
 
     //Add multiple different products to the basket from the home page
 
+
     @And("I click add to cart button for a product")
     public void i_click_add_to_cart_button_for_a_product() {
-        basketPage.addSpecifiedProductToCart();
+        basketPage.addToCartButton();
     }
 
     @When("I click continue shopping button")
@@ -46,7 +49,7 @@ public class BasketStepDefs {
 
     @And("I click add to cart button for a different product")
     public void i_click_add_to_cart_button_for_a_different_product() {
-        //basketPage.addToCartButton();
+        basketPage.addToCartButton();
     }
 
     @Then("pop up menu appears saying product has been added to the basket")
@@ -71,61 +74,63 @@ public class BasketStepDefs {
 
         Assert.assertEquals(basketPage.getCurrentPageURL(),"http://automationpractice.com/index.php?controller=order");
     }
+
     //Increase Quantity of a product in the Basket
     @Given("I can see the product in the basket")
     public void i_can_see_the_product_in_the_basket() {
 
-        String firstProductKey = "Faded Short Sleeve T-shirts";
         Assert.assertTrue(basketPage.checkProductExistsInBasket());
 //        Assert.assertEquals(basketPage.productBasketTableData().get(firstProductKey),basketPage.productHomePageTableData().get(firstProductKey));
-
+        previousQuantityValue = basketPage.getQuantityOfProduct();
     }
-
     @When("I click on the plus button")
     public void i_click_on_the_plus_button() {
-
+        basketPage.increaseQuantityButton();
     }
 
     @Then("I see the quantity has been increased by {int}")
     public void i_see_the_quantity_has_been_increased_by(Integer int1) {
-        throw new cucumber.api.PendingException();
+
+        int parsedString = Integer.parseInt(previousQuantityValue);
+        int sum = Integer.sum(parsedString,int1);
+        String totalSum = Integer.toString(sum);
+        Assert.assertEquals(basketPage.getQuantityOfProduct(),totalSum);
     }
 
     //Decrease quantity of a product in the basket
     @When("I click on the minus button")
     public void i_click_on_the_minus_button() {
-        throw new cucumber.api.PendingException();
+        basketPage.decreaseQuantityButton();
     }
 
     @When("I input a quantity of {int}")
     public void i_input_a_quantity_of(Integer int1) {
-        throw new cucumber.api.PendingException();
+        basketPage.inputSpecifiedQuantity(int1);
     }
 
     //Specify quantity of a product in the basket
     @Then("I see the quantity has been decreased by {int}")
     public void i_see_the_quantity_has_been_decreased_by(Integer int1) {
-        throw new cucumber.api.PendingException();
+        int parsedString = Integer.parseInt(previousQuantityValue);
+        int sum = parsedString-int1;
+        String totalsum = Integer.toString(sum);
+        Assert.assertEquals(basketPage.getQuantityOfProduct(),totalsum);
+
     }
 
     @Then("I see the quantity has been changed to {int}")
     public void i_see_the_quantity_has_been_changed_to(Integer int1) {
-        throw new cucumber.api.PendingException();
+        Assert.assertEquals(basketPage.getQuantityOfProduct(),int1.toString());
     }
     //Proceed to checkout
     @Given("I have a populated basket")
     public void i_have_a_populated_basket() {
-        throw new cucumber.api.PendingException();
-    }
-
-    @When("I click proceed to checkout")
-    public void i_click_proceed_to_checkout() {
-        throw new cucumber.api.PendingException();
+        Assert.assertNotEquals(basketPage.getQuantitySummary(),"0");
     }
 
     @Then("I am on checkout")
     public void i_am_on_checkout() {
-        throw new cucumber.api.PendingException();
+        Assert.assertTrue(basketPage.checkIfCheckedOutOfBasketPage());
     }
 
     //Remove a single product from Basket
@@ -144,8 +149,8 @@ public class BasketStepDefs {
         throw new cucumber.api.PendingException();
     }
 
-    @After("@LoginTest")
-    public void quitDriver(){
-        basketPage.quitDriver();
-    }
+//    @After("@BasketTest")
+//    public void quitDriver(){
+//        basketPage.quitDriver();
+//    }
 }
