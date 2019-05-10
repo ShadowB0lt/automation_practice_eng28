@@ -1,3 +1,4 @@
+@CheckoutTests
 Feature: Checkout
 
   Scenario: I would like to add a new address
@@ -21,12 +22,12 @@ Feature: Checkout
     Then The updated billing address is visible and displayed correctly
 
 
-  Scenario: I would like to view the terms and conditions
-    Given I am currently logged into the website
-    And I have added the items I wanted to the basket
-    And I have clicked through the relevant pages to get to the checkout shipping page
-    When I click on the read terms of service button
-    Then I can view the terms and conditions
+#  Scenario: I would like to view the terms and conditions
+#    Given I am currently logged into the website
+#    And I have added the items I wanted to the basket
+#    And I have clicked through the relevant pages to get to the checkout shipping page
+#    When I click on the read terms of service button
+#    Then I can view the terms and conditions
 
   Scenario: I would like to update my delivery address
     Given I am currently logged into the website
@@ -47,12 +48,6 @@ Feature: Checkout
     And I click on the address I want
     Then the address that I want to be delivered to is displayed
 
-  Scenario: After reviewing my order in the final payment page I would like to continue shopping
-    Given I am currently logged into the website
-    And I have added the items I wanted to the basket
-    And I have clicked through the relevant pages to get to the checkout payment page
-    When I click the continue shopping button
-    Then I can see the shopping page
 
   Scenario: I would like to pay by check
     Given I am currently logged into the website
