@@ -38,6 +38,7 @@ Feature: Registration
       | phone_mobile       | "01228760984"    |
       | phone              | "08988812345"    |
 
+  @demo
   Scenario: Registration is permitted once the form is correctly filled in
     Given I am on the registration page
     And I have added valid data into the mandatory fields

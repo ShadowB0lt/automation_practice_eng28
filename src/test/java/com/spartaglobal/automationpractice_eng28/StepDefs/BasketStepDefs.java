@@ -149,8 +149,8 @@ public class BasketStepDefs {
         throw new cucumber.api.PendingException();
     }
 
-//    @After("@BasketTest")
-//    public void quitDriver(){
-//        basketPage.quitDriver();
-//    }
+    @After("@BasketTest")
+    public void quitDriver(){
+        basketPage.quitDriver();
+    }
 }

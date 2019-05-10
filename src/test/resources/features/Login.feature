@@ -17,7 +17,7 @@ Feature: Login
       | "hithere@@hithere.hi.there" | "Invalid email address." |
 
 
-  @test
+  @test @demo
   Scenario Outline: Inputting an invalid password generates an error
     Given I am on the login page
     When I input the correct email with an invalid password <password>

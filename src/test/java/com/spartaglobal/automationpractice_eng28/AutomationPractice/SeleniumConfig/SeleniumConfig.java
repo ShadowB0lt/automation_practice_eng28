@@ -28,7 +28,7 @@ public class SeleniumConfig
 
         this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        this.driver.manage().window().maximize();
+//        this.driver.manage().window().maximize();
 
     }
 

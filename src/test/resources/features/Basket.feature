@@ -18,6 +18,7 @@ Feature: Basket
     When I click on the minus button
     Then I see the quantity has been decreased by 1
 
+  @demo
   Scenario: Specify quantity of a product in the basket
     Given I can see the product in the basket
     When I input a quantity of 5

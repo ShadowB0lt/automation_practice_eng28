@@ -57,6 +57,7 @@ Feature: Checkout
     And I click on the confirm by order button
     Then The confirmation order message appears for check
 
+  @demo
   Scenario: I would like to pay by bank wire
     Given I am currently logged into the website
     And I have added the items I wanted to the basket
